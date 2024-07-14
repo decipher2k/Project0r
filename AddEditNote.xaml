@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectOrganizer"
         mc:Ignorable="d"
-        Title="Note" Height="357" Width="219" Loaded="Window_Loaded">
+        Title="Note" Height="350" Width="219" Loaded="Window_Loaded" WindowStyle="ToolWindow">
     <Grid Margin="0,0,0,8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -15,8 +15,8 @@
         <Label x:Name="lblDescription" Content="Description" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbDescription" HorizontalAlignment="Center" Margin="0,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
         <Label x:Name="lblNote" Content="Note" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="bnOk" Content="Ok" HorizontalAlignment="Left" Margin="110,286,0,0" VerticalAlignment="Top" Width="44" IsDefault="True" Click="bnOk_Click"/>
-        <Button x:Name="bnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="160,286,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="bnOk" Content="Ok" HorizontalAlignment="Left" Margin="104,282,0,0" VerticalAlignment="Top" Width="44" IsDefault="True" Click="bnOk_Click"/>
+        <Button x:Name="bnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="152,282,0,0" VerticalAlignment="Top" IsCancel="True"/>
         <TextBox x:Name="tbNote" HorizontalAlignment="Center" Margin="0,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Height="137"/>
 
     </Grid>

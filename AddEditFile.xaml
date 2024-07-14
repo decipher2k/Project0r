@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectOrganizer"
         mc:Ignorable="d"
-        Title="File" Height="242" Width="226">
+        Title="File" Height="242" Width="226" WindowStyle="ToolWindow">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

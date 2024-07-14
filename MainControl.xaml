@@ -198,7 +198,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Calendar" RenderTransformOrigin="1.431,0.5">
-                <Grid>
+                <Grid Margin="-3,-1,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="22"></RowDefinition>
                         <RowDefinition Height="*"></RowDefinition>

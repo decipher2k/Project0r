@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectOrganizer"
         mc:Ignorable="d"
-         Height="28" Width="28" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" WindowStyle="None" MouseDown="Window_MouseDown" Background="Transparent" AllowsTransparency="True" MouseUp="Window_MouseUp" MouseMove="Window_MouseMove">
+         Height="48" Width="48" ResizeMode="NoResize" ShowInTaskbar="False" Topmost="True" WindowStyle="None" MouseDown="Window_MouseDown" Background="Transparent" AllowsTransparency="True" MouseUp="Window_MouseUp" MouseMove="Window_MouseMove">
   
 
     <Grid Opacity="1">
         <Grid.Background>
-            <ImageBrush ImageSource="/icon.png"/>
+            <ImageBrush ImageSource="/project-management(1).png"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

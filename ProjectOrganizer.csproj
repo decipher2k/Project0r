@@ -332,5 +332,8 @@
   <ItemGroup>
     <Resource Include="schreiben.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="project-management%281%29.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
