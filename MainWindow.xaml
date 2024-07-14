@@ -23,26 +23,27 @@
                 
             </MenuItem>
             <MenuItem Header="Project">
-                <MenuItem Header="Add Project"/>
-                <MenuItem Header="Rename Project"/>
+                <MenuItem x:Name="mnuProject" Header="Add Project" Click="mnuProject_Click"/>
+                <MenuItem x:Name="mnuRenameProject" Header="Rename Project" Click="mnuRenameProject_Click"/>
                 <Separator/>
                 <MenuItem Header="Remove Project"/>
             </MenuItem>
         </Menu>
 
-        <TabControl Height="Auto" Width="Auto" Grid.Row="1" Margin="0,0,-20,-20">
-            <TabItem Margin="0,0,0,0" Header="Project 1" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                
-                <local:MainControl  Width="Auto" Height="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></local:MainControl>
-                
-
-            </TabItem>
-            <TabItem Header="Project 2">
+        <TabControl x:Name="tabMain" Height="Auto" Width="Auto" Grid.Row="1" Margin="0,0,-20,-20">
+            <TabItem Margin="0,0,0,0" Header="Intro" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid>
-                    <local:MainControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto"/>
+                    <TextBlock>
+                    Welcome to Project0r!
+                    <LineBreak></LineBreak>                
+                    There are not projects existing yet.
+                    <LineBreak></LineBreak>
+                    Add one by clicking on Project->Add Project.
+                    </TextBlock>
                 </Grid>
-            </TabItem>
 
+
+            </TabItem>
         </TabControl>
 
 
