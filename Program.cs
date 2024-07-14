@@ -16,6 +16,8 @@ namespace ProjectOrganizer
         public String name {  get; set; }
         public String description { get; set; }
         public String executaleFile { get; set; }
+
+
         public ImageSource picture { get; set; }
 
         public override String ToString()

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectOrganizer"
         mc:Ignorable="d"
-        Title="Project0r" Height="450" Width="800" WindowStyle="ToolWindow" ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize">
+        Title="Project0r" Height="450" Width="800" WindowStyle="ToolWindow" ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize" Loaded="Window_Loaded">
     
     <Grid>
         <Grid.RowDefinitions>

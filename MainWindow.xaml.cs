@@ -23,15 +23,13 @@ namespace ProjectOrganizer
     /// </summary>
     public partial class MainWindow : Window
     {
-        Project project = new Project();
+       
 
     public static MainWindow Instance { get; private set; }
 
-
+        FloatingWindow w;
         public MainWindow()
-        {
-          
-         
+        {                   
             Instance = this;
             InitializeComponent();
             tabMain.Items.IsLiveSorting = true;
@@ -66,8 +64,9 @@ namespace ProjectOrganizer
                 if(noProjects)
                     tabMain.Items.Clear();
                 noProjects = false;
-                project.Projects.Add(input, new Data());
+                Project.Instance.Projects.Add(input, new Data());
                 loadTabs();
+                Project.Save();
                 tabMain.SelectedIndex = 0;
             }
         }
@@ -80,13 +79,19 @@ namespace ProjectOrganizer
                 Data tmp = Project.Instance.Projects[((TabItem)tabMain.SelectedItem).Header.ToString()];
                 Project.Instance.Projects.Remove(((TabItem)tabMain.SelectedItem).Header.ToString());             
                 Project.Instance.Projects.Add(input,tmp);
-/*                tabMain.Items.Remove(((TabItem)tabMain.SelectedItem));
-                TabItem tabItem = new TabItem();
-                tabItem.Header = input;
-                tabItem.Content = new MainControl(input) { VerticalAlignment = VerticalAlignment.Stretch, HorizontalAlignment = HorizontalAlignment.Stretch };
-                tabMain.Items.Add(tabItem);*/
+                Project.Save();
+                /*                tabMain.Items.Remove(((TabItem)tabMain.SelectedItem));
+                                TabItem tabItem = new TabItem();
+                                tabItem.Header = input;
+                                tabItem.Content = new MainControl(input) { VerticalAlignment = VerticalAlignment.Stretch, HorizontalAlignment = HorizontalAlignment.Stretch };
+                                tabMain.Items.Add(tabItem);*/
                 loadTabs();
             }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            loadTabs();
         }
     }
 }

@@ -29,8 +29,10 @@ namespace ProjectOrganizer
     public partial class MainControl : UserControl
     {
         Data dat;
-        public MainControl(String project)
+        String project;
+        public MainControl(String _project)
         {
+            project = _project;
             this.dat =(Data) Project.Instance.Projects.Where(a=>a.Key==project).First().Value;
             InitializeComponent();           
 
@@ -39,7 +41,7 @@ namespace ProjectOrganizer
             lbNotes.ItemsSource = dat.Notes;
         }
 
-        
+       
 
         private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -76,9 +78,42 @@ namespace ProjectOrganizer
                     ImageSource img = result.ToImageSource();
                     p.picture = img;
                     dat.Apps.Add(p);
+                    Project.Instance.Projects[project] = dat;
+                    Project.Save();
                 }
             }
             MainWindow.Instance.Topmost = true;
+        }
+
+        private void bnAddFile_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow.Instance.Topmost = false;
+            AddEditFile wnd = new AddEditFile();
+            if (wnd.ShowDialog() == true)
+            {
+                File p = new File();
+                p.fileName = wnd.file;
+                p.description = wnd.description;
+                p.name = wnd.name;
+                Icon result = (Icon)null;
+
+                result = Icon.ExtractAssociatedIcon(wnd.file);
+                if (result != null)
+                {
+                    ImageSource img = result.ToImageSource();
+                    p.picture = img;
+                    dat.Files.Add(p);
+                    Project.Instance.Projects[project] = dat;
+                    Project.Save();
+                }
+            }
+            MainWindow.Instance.Topmost = true;
+        }
+
+        private void lbFiles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            File p = (File)((ListBox)sender).SelectedItem;
+            Process.Start(p.fileName);
         }
     }
 }

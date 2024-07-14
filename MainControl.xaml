@@ -87,7 +87,7 @@
                                 <ImageBrush ImageSource="/development.png"/>
                             </Button.Background>
                         </Button>
-                        <Button ToolTip="Add File" Height="16" Width="16" BorderBrush="Black" Style="{DynamicResource ButtonStyle}">
+                        <Button x:Name="bnAddFile" ToolTip="Add File" Height="16" Width="16" BorderBrush="Black" Style="{DynamicResource ButtonStyle}" Click="bnAddFile_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="/document.png"/>
                             </Button.Background>
@@ -112,7 +112,20 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <ListBox x:Name="lbFiles" Width="Auto" d:ItemsSource="{Binding Files, Mode=OneWay}" Grid.Column="1" Grid.Row="1" Style="{DynamicResource ItemsSmall}"/>
+                    <ListBox x:Name="lbFiles" Width="Auto" d:ItemsSource="{Binding Files, Mode=OneWay}" Grid.Column="1" Grid.Row="1" Style="{DynamicResource ItemsSmall}" MouseDoubleClick="lbFiles_MouseDoubleClick">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="20"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Source="{Binding picture}" Grid.Row="0" />
+                                    <TextBlock Text="{Binding name}" Grid.Row="1"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
 
             </TabItem>
