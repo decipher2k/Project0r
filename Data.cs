@@ -54,6 +54,16 @@ namespace ProjectOrganizer
             }
         }
 
+        private ObservableCollection<Calendar> calendar;
+        public ObservableCollection<Calendar> Calendar
+        {
+            get
+            {
+                if (calendar == null)
+                    calendar = new ObservableCollection<Calendar>();
+                return calendar;
+            }
+        }
 
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using Orc.Controls;
 using Orchestra;
 using System;
 using System.Collections.Generic;
@@ -41,6 +42,7 @@ namespace ProjectOrganizer
             lbFiles.ItemsSource = dat.Files;
             lbNotes.ItemsSource = dat.Notes;
             lbTodo.ItemsSource = dat.ToDo;
+            lbCalendar.ItemsSource = dat.Calendar;
         }
 
        
@@ -198,6 +200,43 @@ namespace ProjectOrganizer
                     }
                 }
             }
+        }
+
+        private void bnCreateCalendar_Click(object sender, RoutedEventArgs e)
+        {
+                Calendar toDo = new Calendar();
+                toDo.caption = tbCalendarCaption.Text;
+                toDo.text = tbCalendarDetails.Text;
+                toDo.from=DateTime.Parse(tbCalendarFrom.Text);
+                toDo.to=DateTime.Parse(tbCalendarTo.Text);
+                toDo.handled = false;
+                toDo.date=(DateTime)calCalendar.SelectedDate;
+                Project.Instance.Projects[project].Calendar.Add(toDo);
+                Project.Save();
+        }
+
+        private void lbCalendar_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Calendar calendar = (Calendar)lbCalendar.SelectedItem;
+            if (calendar != null)
+            {
+                tbCalendarCaption.Text=calendar.caption;
+                tbCalendarDetails.Text = calendar.text;
+                tbCalendarFrom.Text=calendar.from.ToShortTimeString();
+                tbCalendarTo.Text = calendar.to.ToShortTimeString();
+                calCalendar.SelectedDate = calendar.date;
+            }
+        }
+
+        private void bnAddCalendar_Click(object sender, RoutedEventArgs e)
+        {
+            lbCalendar.SelectedItem = null;
+
+            tbCalendarCaption.Text = "";
+            tbCalendarDetails.Text = "";
+            tbCalendarFrom.Text = "";
+            tbCalendarTo.Text = "";
+            calCalendar.SelectedDate = DateTime.Now;
         }
     }
 }

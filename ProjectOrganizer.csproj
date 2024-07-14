@@ -230,6 +230,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Calendar.cs" />
     <Compile Include="ToDo.cs" />
     <Page Include="AddEditFile.xaml">
       <Generator>MSBuild:Compile</Generator>
