@@ -42,5 +42,18 @@ namespace ProjectOrganizer
                 return notes;
             }
         }
+
+        private ObservableCollection<ToDo> todo;
+        public ObservableCollection<ToDo> ToDo
+        {
+            get
+            {
+                if (todo == null)
+                    todo = new ObservableCollection<ToDo>();
+                return todo;
+            }
+        }
+
+
     }
 }

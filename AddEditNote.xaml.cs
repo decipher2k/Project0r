@@ -19,9 +19,30 @@ namespace ProjectOrganizer
     /// </summary>
     public partial class AddEditNote : Window
     {
+        public string caption = "";
+        public string description = "";
+        public string note = "";
+
         public AddEditNote()
         {
             InitializeComponent();
+            
+        }
+
+        private void bnOk_Click(object sender, RoutedEventArgs e)
+        {
+            caption=tbCaption.Text;
+            description=tbDescription.Text;
+            note=tbNote.Text;
+            DialogResult = true;
+            this.Close();
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            tbCaption.Text = caption;
+            tbDescription.Text = description;
+            tbNote.Text = note;
         }
     }
 }

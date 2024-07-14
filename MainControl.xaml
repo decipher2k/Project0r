@@ -106,8 +106,8 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="20"/>
                                     </Grid.RowDefinitions>
-                                    <Image Source="{Binding picture}" Grid.Row="0" />
-                                    <TextBlock Text="{Binding name}" Grid.Row="1"/>
+                                    <Image HorizontalAlignment="Center" Source="{Binding picture}" Grid.Row="0" />
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding name}" Grid.Row="1"/>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -115,13 +115,13 @@
                     <ListBox x:Name="lbFiles" Width="Auto" d:ItemsSource="{Binding Files, Mode=OneWay}" Grid.Column="1" Grid.Row="1" Style="{DynamicResource ItemsSmall}" MouseDoubleClick="lbFiles_MouseDoubleClick">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Grid Margin="0,2">
+                                <Grid HorizontalAlignment="Center" Margin="0,2">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="20"/>
                                     </Grid.RowDefinitions>
-                                    <Image Source="{Binding picture}" Grid.Row="0" />
-                                    <TextBlock Text="{Binding name}" Grid.Row="1"/>
+                                    <Image HorizontalAlignment="Center" Source="{Binding picture}" Grid.Row="0" />
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding name}" Grid.Row="1"/>
                                 </Grid>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
@@ -129,7 +129,7 @@
                 </Grid>
 
             </TabItem>
-            <TabItem Header="Notes">
+            <TabItem Header="Notes" RenderTransformOrigin="1.08,0.5">
 
                 <Grid Background="#FFE5E5E5" Margin="-4,-4,0,0">
 
@@ -143,7 +143,7 @@
 
                     </Grid.RowDefinitions>
                     <ToolBar  Background="White" Padding="0,0,0,0" >
-                        <Button ToolTip="Add Note" Height="16" Width="16" BorderBrush="Black" Style="{DynamicResource ButtonStyle}">
+                        <Button x:Name="bnAddNote"  ToolTip="Add Note" Height="16" Width="16" BorderBrush="Black" Style="{DynamicResource ButtonStyle}" Click="bnAddNote_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="/document.png"/>
                             </Button.Background>
@@ -154,7 +154,22 @@
                             </Button.Background>
                         </Button>
                     </ToolBar>
-                    <ListBox Grid.Row="1" x:Name="lbNotes" d:ItemsSource="{Binding Notes, Mode=OneWay}" Width="Auto" Height="Auto" Margin="-4,-4,-9,-9" Style="{DynamicResource ItemsLarge}"/>
+                    <ListBox Grid.Row="1" x:Name="lbNotes" d:ItemsSource="{Binding Notes, Mode=OneWay}" Width="Auto" Height="Auto" Margin="-4,-4,-9,-9" Style="{DynamicResource ItemsLarge}" MouseDoubleClick="lbNotes_MouseDoubleClick">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="20"/>
+                                    </Grid.RowDefinitions>
+                                    <Image HorizontalAlignment="Center" Source="/schreiben.png" Grid.Row="0" Width="90" Height="90" />
+                                    <TextBlock HorizontalAlignment="Center" Text="{Binding name}" Grid.Row="1"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+
+
+                    </ListBox>
                 </Grid>
             </TabItem>
             <TabItem Header="ToDo">
@@ -170,7 +185,7 @@
 
                     </Grid.RowDefinitions>
                     <ToolBar Grid.Row="0" Background="White" Padding="0,0,0,0" >
-                        <Button ToolTip="Add ToDo Item" Height="16" Width="16" BorderBrush="Black" Style="{DynamicResource ButtonStyle}">
+                        <Button x:Name="bnAddToDo" ToolTip="Add ToDo Item" Height="16" Width="16" BorderBrush="Black" Style="{DynamicResource ButtonStyle}" Click="bnAddToDo_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="/document.png"/>
                             </Button.Background>
@@ -181,27 +196,27 @@
                             </Button.Background>
                         </Button>
                     </ToolBar>
-                    <ListBox Grid.Row="1" x:Name="lbTodo" d:ItemsSource="{Binding ToDo, Mode=OneWay}" Width="Auto" Height="Auto" Margin="-4,-4,-9,-9" />
+                    <ListBox Grid.Row="1" x:Name="lbTodo" d:ItemsSource="{Binding ToDo, Mode=OneWay}" Width="Auto" Height="Auto" Margin="-4,-4,-9,-9" MouseDoubleClick="lbTodo_MouseDoubleClick"/>
                 </Grid>
             </TabItem>
-            <TabItem Header="Calendar">
+            <TabItem Header="Calendar" RenderTransformOrigin="1.431,0.5">
 
                 <Grid Margin="0,-2,0,0">
 
                     <Canvas >
                         <Calendar HorizontalAlignment="Center" VerticalAlignment="Top" Height="166" Width="179" Canvas.Top="-6" Canvas.Left="-2"/>
                         <Rectangle Grid.Row="0" Height="165" Canvas.Left="176" Stroke="Black" Width="593" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="-6"/>
-                        
+
                         <ListBox  Height="293" Width="780" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Canvas.Top="158" VerticalAlignment="Top" Canvas.Left="-3"/>
                         <Label Content="Caption:" Canvas.Left="208" Canvas.Top="18" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <TextBox Canvas.Left="227" TextWrapping="Wrap" Canvas.Top="41" Width="353" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBox x:Name="tbCalendarCaption" Canvas.Left="227" TextWrapping="Wrap" Canvas.Top="41" Width="353" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Content="Details" Canvas.Left="207" Canvas.Top="58" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <TextBox Canvas.Left="227" TextWrapping="Wrap" Canvas.Top="82" Width="352" HorizontalAlignment="Center" VerticalAlignment="Top" Height="54"/>
-                        <Button Content="Create" Canvas.Left="610" Canvas.Top="116" HorizontalAlignment="Center" VerticalAlignment="Top" Width="120"/>
+                        <TextBox x:Name="tbCalendarDetails" Canvas.Left="227" TextWrapping="Wrap" Canvas.Top="82" Width="352" HorizontalAlignment="Center" VerticalAlignment="Top" Height="54"/>
+                        <Button x:Name="bnCreateCalendar" Content="Create" Canvas.Left="610" Canvas.Top="116" HorizontalAlignment="Center" VerticalAlignment="Top" Width="120"/>
                         <Label x:Name="lblFrom" Content="From" Canvas.Left="392" Canvas.Top="-21"/>
                         <Label Content="To" Canvas.Left="599" Canvas.Top="61" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <TextBox Canvas.Left="610" TextWrapping="Wrap" Text="TextBox" Canvas.Top="83" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                        <TextBox Canvas.Left="610" TextWrapping="Wrap" Text="TextBox" Canvas.Top="41" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBox x:Name="tbCalendarTo" Canvas.Left="610" TextWrapping="Wrap" Text="" Canvas.Top="83" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBox x:Name="tbCalendarFrom" Canvas.Left="610" TextWrapping="Wrap" Text="" Canvas.Top="41" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Content="From" Canvas.Left="599" Canvas.Top="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Rectangle Grid.Row="0" Height="160"  Stroke="Black" Width="754" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="1" Canvas.Top="-1"/>
                     </Canvas>
