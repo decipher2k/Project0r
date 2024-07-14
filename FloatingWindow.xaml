@@ -10,7 +10,7 @@
 
     <Grid Opacity="1">
         <Grid.Background>
-            <ImageBrush ImageSource="/project-management(1).png"/>
+            <ImageBrush ImageSource="/icon_new4-Photoroom.png"/>
         </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

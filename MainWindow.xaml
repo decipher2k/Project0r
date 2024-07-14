@@ -33,7 +33,7 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Background="Black" Width="Auto" Height="Auto" MouseDown="Label_MouseDown"/>
+        <Label Background="Black" Width="Auto" Height="Auto" MouseDown="Label_MouseDown" Content="Project Assistant 1.0" Foreground="White" FontSize="9" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <Button x:Name="bnExit" Width="20" Height="20" HorizontalAlignment="Right" Style="{DynamicResource ButtonStyle}" Click="bnExit_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/minimize.png"/>

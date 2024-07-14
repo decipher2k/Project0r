@@ -335,5 +335,23 @@
   <ItemGroup>
     <Resource Include="project-management%281%29.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon_new.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon_new1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon_new2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon_new3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon_new4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon_new4-Photoroom.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

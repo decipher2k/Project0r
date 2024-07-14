@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Orchestra;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,6 +49,12 @@ namespace ProjectOrganizer
                 {
                     mainWindow=new MainWindow();
                     mainWindow.Show();
+                }
+                else
+                {
+                    mainWindow.Activate();
+                    mainWindow.WindowState=WindowState.Normal;
+                    mainWindow.BringIntoView();
                 }
             }
             else

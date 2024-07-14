@@ -51,6 +51,7 @@ namespace ProjectOrganizer
         {
             Program p = (Program)((ListBox)sender).SelectedItem;
             Process.Start(p.executaleFile);
+            MainWindow.Instance.Close();
         }
 
         
@@ -115,6 +116,7 @@ namespace ProjectOrganizer
         {
             File p = (File)((ListBox)sender).SelectedItem;
             Process.Start(p.fileName);
+            MainWindow.Instance.Close();
         }
 
         private void bnAddNote_Click(object sender, RoutedEventArgs e)
