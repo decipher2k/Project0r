@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -48,8 +50,7 @@ namespace ProjectOrganizer
                 {
                     TabItem tabItem = new TabItem();
                     tabItem.Header = key.Key;
-                    tabItem.Content = new MainControl(key.Key) { VerticalAlignment = VerticalAlignment.Stretch, HorizontalAlignment = HorizontalAlignment.Stretch };
-                    tabMain.Items.Add(tabItem);
+                    tabItem.Content = new MainControl(key.Key) {  };                    tabMain.Items.Add(tabItem);
                     tabMain.SelectedIndex = 0;
                 }
             }
@@ -92,6 +93,23 @@ namespace ProjectOrganizer
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             loadTabs();
+            
+        }
+
+        private void Window_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if(this.IsVisible) 
+                this.Close();
+        }
+
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void bnExit_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

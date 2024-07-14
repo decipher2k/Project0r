@@ -42,8 +42,8 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-   
-    
+
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -52,7 +52,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl UseLayoutRounding="False" TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged" Grid.Row="1">
+        <TabControl UseLayoutRounding="False" TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged">
 
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">
@@ -132,7 +132,7 @@
             <TabItem Header="Notes">
 
                 <Grid Background="#FFE5E5E5" Margin="-4,-4,0,0">
-                    
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="28">
 
@@ -186,20 +186,24 @@
             </TabItem>
             <TabItem Header="Calendar">
 
-                <Grid>
+                <Grid Margin="0,-2,0,0">
 
                     <Canvas >
                         <Calendar HorizontalAlignment="Center" VerticalAlignment="Top" Height="166" Width="179" Canvas.Top="-6" Canvas.Left="-2"/>
-                        <TimePicker:TimePicker Canvas.Left="202" Height="128" Width="129" RenderTransformOrigin="0.388,0.31" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="6"/>
-                        <Rectangle Height="162" Canvas.Left="176" Stroke="Black" Width="173" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="-3"/>
-                        <Rectangle Grid.Row="0" Height="162" Canvas.Left="348" Stroke="Black" Width="431" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="-3"/>
-                        <ListBox  Height="293" Width="780" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Canvas.Top="158" VerticalAlignment="Top" Canvas.Left="-1"/>
-                        <Label Content="&lt;no time set&gt;" Canvas.Left="182" Canvas.Top="132" HorizontalAlignment="Left" VerticalAlignment="Center" HorizontalContentAlignment="Center" Width="163"/>
-                        <Label Content="Caption:" Canvas.Left="367" Canvas.Top="8" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <TextBox Canvas.Left="386" TextWrapping="Wrap" Canvas.Top="31" Width="353" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <Label Content="Details" Canvas.Left="366" Canvas.Top="48" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        <TextBox Canvas.Left="386" TextWrapping="Wrap" Canvas.Top="72" Width="352" HorizontalAlignment="Left" VerticalAlignment="Center" Height="54"/>
-                        <Button Content="Create" Canvas.Left="652" Canvas.Top="134" HorizontalAlignment="Left" VerticalAlignment="Center" Width="86"/>
+                        <Rectangle Grid.Row="0" Height="165" Canvas.Left="176" Stroke="Black" Width="593" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Top="-6"/>
+                        
+                        <ListBox  Height="293" Width="780" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Canvas.Top="158" VerticalAlignment="Top" Canvas.Left="-3"/>
+                        <Label Content="Caption:" Canvas.Left="208" Canvas.Top="18" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBox Canvas.Left="227" TextWrapping="Wrap" Canvas.Top="41" Width="353" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="Details" Canvas.Left="207" Canvas.Top="58" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBox Canvas.Left="227" TextWrapping="Wrap" Canvas.Top="82" Width="352" HorizontalAlignment="Center" VerticalAlignment="Top" Height="54"/>
+                        <Button Content="Create" Canvas.Left="610" Canvas.Top="116" HorizontalAlignment="Center" VerticalAlignment="Top" Width="120"/>
+                        <Label x:Name="lblFrom" Content="From" Canvas.Left="392" Canvas.Top="-21"/>
+                        <Label Content="To" Canvas.Left="599" Canvas.Top="61" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBox Canvas.Left="610" TextWrapping="Wrap" Text="TextBox" Canvas.Top="83" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <TextBox Canvas.Left="610" TextWrapping="Wrap" Text="TextBox" Canvas.Top="41" Width="120" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Label Content="From" Canvas.Left="599" Canvas.Top="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                        <Rectangle Grid.Row="0" Height="160"  Stroke="Black" Width="754" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="1" Canvas.Top="-1"/>
                     </Canvas>
 
                 </Grid>
@@ -231,17 +235,17 @@
                     <Grid Grid.Row="1" Grid.ColumnSpan="2">
                         <Grid.RowDefinitions>
                             <RowDefinition>
-                                
+
                             </RowDefinition>
                             <RowDefinition>
-                                
+
                             </RowDefinition>
                         </Grid.RowDefinitions>
                         <ListBox Grid.Row="0">
-                            
+
                         </ListBox>
                         <RichTextBox Grid.Row="1">
-                            
+
                         </RichTextBox>
                     </Grid>
                 </Grid>

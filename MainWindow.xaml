@@ -5,22 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectOrganizer"
         mc:Ignorable="d"
-        Title="Project0r" Height="450" Width="800" WindowStyle="ToolWindow" ShowInTaskbar="False" Topmost="True" ResizeMode="NoResize" Loaded="Window_Loaded">
-    
+         Height="438" Width="786" Topmost="False" ResizeMode="NoResize" Loaded="Window_Loaded"  WindowStartupLocation="CenterScreen" Icon="/icon.png" WindowStyle="None">
+    <Window.Resources>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Width" Value="18" />
+            <Setter Property="Height" Value="18" />
+            <Setter Property="Cursor" Value="Hand"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid Background="{TemplateBinding Background}">
+                            <ContentPresenter />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
             <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
-
-        <Menu Height="20" Margin="0,0,0,0" Grid.Row="0" >
+        <Label Background="Black" Width="Auto" Height="Auto" MouseDown="Label_MouseDown"/>
+        <Button x:Name="bnExit" Width="20" Height="20" HorizontalAlignment="Right" Style="{DynamicResource ButtonStyle}" Click="bnExit_Click">
+            <Button.Background>
+                <ImageBrush ImageSource="/minimize.png"/>
+            </Button.Background>
+        </Button>
+        <Menu Height="20" Grid.Row="1" >
             <MenuItem Header="File">
                 <MenuItem Header="Connect to MS Teams"/>
                 <MenuItem Header="Exit"/>
             </MenuItem>
             <MenuItem Header="Edit">
-                
+
             </MenuItem>
             <MenuItem Header="Project">
                 <MenuItem x:Name="mnuProject" Header="Add Project" Click="mnuProject_Click"/>
@@ -30,13 +55,13 @@
             </MenuItem>
         </Menu>
 
-        <TabControl x:Name="tabMain" Height="Auto" Width="Auto" Grid.Row="1" Margin="0,0,-20,-20">
+        <TabControl x:Name="tabMain" Height="Auto" Width="Auto" Grid.Row="2" Margin="0,0,-5,-5">
             <TabItem Margin="0,0,0,0" Header="Intro" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid>
                     <TextBlock>
                     Welcome to Project0r!
                     <LineBreak></LineBreak>                
-                    There are not projects existing yet.
+                    There are no projects existing yet.
                     <LineBreak></LineBreak>
                     Add one by clicking on Project->Add Project.
                     </TextBlock>
@@ -45,6 +70,7 @@
 
             </TabItem>
         </TabControl>
+        <Rectangle Grid.RowSpan="4" Stroke="Black"/>
 
 
     </Grid>
