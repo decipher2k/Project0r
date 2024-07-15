@@ -15,6 +15,10 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-
+        <Grid.ContextMenu>
+            <ContextMenu VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto">
+                <TextBlock  VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto" x:Name="mnuCloseWindow" MouseUp="mnuCloseWindow_Click" xml:space = "preserve">Close     </TextBlock>
+            </ContextMenu>
+        </Grid.ContextMenu>
     </Grid>
 </Window>

@@ -100,7 +100,17 @@
                         </Button>
                     </ToolBar>
                     <ListBox  x:Name="lbApps" Width="Auto" d:ItemsSource="{Binding Apps, Mode=OneWay}" Grid.Column="0" Grid.Row="1" MouseDoubleClick="ListBox_MouseDoubleClick" MouseUp="lbApps_MouseUp" Style="{DynamicResource ItemsSmall}" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,0,382,0"  >
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Click="mnuAddApp_Click" Name="mnuAddApp" Header="Add"></MenuItem>
+                                <MenuItem Click="mnuEditApp_Click" Name="mnuEditApp" Header="Edit"></MenuItem>
+                                <Separator></Separator>
+                                <MenuItem Click="mnuRemoveApp_Click" Name="mnuRemoveApp" Header="Remove"></MenuItem>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+
                         <ListBox.ItemTemplate>
+                            
                             <DataTemplate>
                                 <Grid Margin="0,2,0,0">
                                     <Grid.RowDefinitions>
@@ -114,6 +124,14 @@
                         </ListBox.ItemTemplate>
                     </ListBox>
                     <ListBox x:Name="lbFiles" Width="Auto" d:ItemsSource="{Binding Files, Mode=OneWay}" Grid.Row="1" Style="{DynamicResource ItemsSmall}" MouseDoubleClick="lbFiles_MouseDoubleClick" MouseUp="lbFiles_MouseUp" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="378,0,-1,0">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Click="mnuAddDocument_Click" Name="mnuAddDocument" Header="Add"></MenuItem>
+                                <MenuItem Click="mnuEditDocument_Click" Name="mnuEditDocument" Header="Edit"></MenuItem>
+                                <Separator></Separator>
+                                <MenuItem Click="mnuRemoveDocument_Click" Name="mnuRemoveDocument" Header="Remove"></MenuItem>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid HorizontalAlignment="Center" Margin="0,2">
@@ -156,6 +174,14 @@
                         </Button>
                     </ToolBar>
                     <ListBox x:Name="lbNotes" d:ItemsSource="{Binding Notes, Mode=OneWay}" Width="Auto" Height="Auto" Margin="0,24,-9,-9" Style="{DynamicResource ItemsLarge}" MouseDoubleClick="lbNotes_MouseDoubleClick" Grid.RowSpan="2">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Click="mnuAddNote_Click" Name="mnuAddNote" Header="Add"></MenuItem>
+                                <MenuItem Click="mnuEditNote_Click" Name="mnuEditNote" Header="Edit"></MenuItem>
+                                <Separator></Separator>
+                                <MenuItem Click="mnuRemoveNote_Click" Name="mnuRemoveNote" Header="Remove"></MenuItem>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="0,2">
@@ -195,7 +221,16 @@
                             </Button.Background>
                         </Button>
                     </ToolBar>
-                    <ListBox x:Name="lbTodo" d:ItemsSource="{Binding ToDo, Mode=OneWay}" Width="Auto" Height="Auto" Margin="0,24,-9,-9" MouseDoubleClick="lbTodo_MouseDoubleClick" Grid.RowSpan="2"/>
+                    <ListBox x:Name="lbTodo" d:ItemsSource="{Binding ToDo, Mode=OneWay}" Width="Auto" Height="Auto" Margin="0,24,-9,-9" MouseDoubleClick="lbTodo_MouseDoubleClick" Grid.RowSpan="2">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Click="mnuAddToDo_Click" Name="mnuAddToDo" Header="Add"></MenuItem>
+                                <MenuItem Click="mnuEditToDo_Click" Name="mnuEditToDo" Header="Edit"></MenuItem>
+                                <Separator></Separator>
+                                <MenuItem Click="mnuRemoveToDo_Click" Name="mnuRemoveToDo" Header="Remove"></MenuItem>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                    </ListBox>
                 </Grid>
             </TabItem>
             <TabItem Header="Calendar" RenderTransformOrigin="1.431,0.5">
@@ -220,7 +255,16 @@
                         <Calendar x:Name="calCalendar" HorizontalAlignment="Center" VerticalAlignment="Top" Height="166" Width="179" Canvas.Top="-9" Canvas.Left="9"/>
                         <Rectangle Height="159" Canvas.Left="188" Stroke="LightGray" Width="593" HorizontalAlignment="Left" VerticalAlignment="Center" Canvas.Top="-6"/>
 
-                        <ListBox x:Name="lbCalendar" Height="298" Width="771" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Canvas.Top="152" VerticalAlignment="Center" Canvas.Left="9" SelectionChanged="lbCalendar_SelectionChanged"/>
+                        <ListBox x:Name="lbCalendar" Height="298" Width="771" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" Canvas.Top="152" VerticalAlignment="Center" Canvas.Left="9" SelectionChanged="lbCalendar_SelectionChanged">
+                            <ListBox.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Click="mnuAddCalendar_Click" Name="mnuAddCalendar" Header="Add"></MenuItem>
+                                    <MenuItem Click="mnuEditCalendar_Click" Name="mnuEditCalendar" Header="Edit"></MenuItem>
+                                    <Separator></Separator>
+                                    <MenuItem Click="mnuRemoveCalendar_Click" Name="mnuRemoveCalendar" Header="Remove"></MenuItem>
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                        </ListBox>
                         <Label Content="Caption:" Canvas.Left="208" Canvas.Top="18" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <TextBox x:Name="tbCalendarCaption" Canvas.Left="227" TextWrapping="Wrap" Canvas.Top="41" Width="353" HorizontalAlignment="Center" VerticalAlignment="Top"/>
                         <Label Content="Details" Canvas.Left="207" Canvas.Top="58" HorizontalAlignment="Center" VerticalAlignment="Top"/>

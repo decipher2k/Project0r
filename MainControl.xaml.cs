@@ -49,9 +49,13 @@ namespace ProjectOrganizer
 
         private void ListBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Program p = (Program)((ListBox)sender).SelectedItem;
-            Process.Start(p.executaleFile);
-            MainWindow.Instance.Close();
+            try
+            {
+                Program p = (Program)((ListBox)sender).SelectedItem;
+                Process.Start(p.executaleFile);
+                MainWindow.Instance.Close();
+            }
+            catch (Exception) { }
         }
 
         
@@ -70,20 +74,27 @@ namespace ProjectOrganizer
             AddEditFile wnd = new AddEditFile();
             if(wnd.ShowDialog()==true)
             {
-                Program p=new Program();
-                p.executaleFile = wnd.file;
-                p.description=wnd.description;
-                p.name = wnd.name;
-                Icon result = (Icon)null;
-
-                result =  Icon.ExtractAssociatedIcon(wnd.file);
-                if (result != null)
+                if (!System.IO.File.Exists(wnd.file))
                 {
-                    ImageSource img = result.ToImageSource();
-                    p.picture = img;
-                    dat.Apps.Add(p);
-                    Project.Instance.Projects[project] = dat;
-                    Project.Save();
+                    MessageBox.Show("File not found.");
+                }
+                else
+                {
+                    Program p = new Program();
+                    p.executaleFile = wnd.file;
+                    p.description = wnd.description;
+                    p.name = wnd.name;
+                    Icon result = (Icon)null;
+
+                    result = Icon.ExtractAssociatedIcon(wnd.file);
+                    if (result != null)
+                    {
+                        ImageSource img = result.ToImageSource();
+                        p.picture = img;
+                        dat.Apps.Add(p);
+                        Project.Instance.Projects[project] = dat;
+                        Project.Save();
+                    }
                 }
             }
          
@@ -206,15 +217,30 @@ namespace ProjectOrganizer
 
         private void bnCreateCalendar_Click(object sender, RoutedEventArgs e)
         {
-                Calendar toDo = new Calendar();
-                toDo.caption = tbCalendarCaption.Text;
-                toDo.text = tbCalendarDetails.Text;
-                toDo.from=DateTime.Parse(tbCalendarFrom.Text);
-                toDo.to=DateTime.Parse(tbCalendarTo.Text);
-                toDo.handled = false;
-                toDo.date=(DateTime)calCalendar.SelectedDate;
-                Project.Instance.Projects[project].Calendar.Add(toDo);
-                Project.Save();
+
+            if (calCalendar.SelectedDate == null)
+            {
+                MessageBox.Show("Please select a date.");
+            }
+            else
+            {
+                try
+                {
+                    Calendar toDo = new Calendar();
+                    toDo.caption = tbCalendarCaption.Text;
+                    toDo.text = tbCalendarDetails.Text;
+                    toDo.from = DateTime.Parse(tbCalendarFrom.Text);
+                    toDo.to = DateTime.Parse(tbCalendarTo.Text);
+                    toDo.handled = false;
+                    toDo.date = (DateTime)calCalendar.SelectedDate;
+                    Project.Instance.Projects[project].Calendar.Add(toDo);
+                    Project.Save();
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Invalid time format.");
+                }
+            }
         }
 
         private void lbCalendar_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -312,6 +338,126 @@ namespace ProjectOrganizer
                 Project.Instance.Projects[project].Calendar.Remove(p);
                 Project.Save();
             }
+        }
+
+        private void mnuAddCalendar_Click(object sender, RoutedEventArgs e)
+        {
+            bnAddCalendar_Click(sender, e);
+        }
+
+        private void mnuEditCalendar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mnuRemoveCalendar_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mnuRemoveToDo_Click(object sender, RoutedEventArgs e)
+        {
+            bnDeleteToDo_Click(sender, e);
+        }
+
+        private void mnuEditToDo_Click(object sender, RoutedEventArgs e)
+        {
+            ToDo note = lbTodo.SelectedItem as ToDo;
+            if (note != null)
+            {
+                AddEditNote addEditNote = new AddEditNote();
+                addEditNote.caption = note.caption;
+                addEditNote.note = note.description;
+
+
+                if (addEditNote.ShowDialog() == true)
+                {
+                    for (int i = 0; i < Project.Instance.Projects[project].ToDo.Count; i++)
+                    {
+                        if (Project.Instance.Projects[project].ToDo[i].caption == note.caption)
+                        {
+
+                            Project.Instance.Projects[project].ToDo[i].description = addEditNote.note;
+                            Project.Instance.Projects[project].ToDo[i].caption = addEditNote.caption;
+                            Project.Save();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void mnuAddToDo_Click(object sender, RoutedEventArgs e)
+        {
+            bnAddToDo_Click(sender, e);
+        }
+
+        private void mnuAddNote_Click(object sender, RoutedEventArgs e)
+        {
+            bnAddNote_Click(sender, e);
+        }
+
+        private void mnuEditNote_Click(object sender, RoutedEventArgs e)
+        {
+            Note note = lbNotes.SelectedItem as Note;
+            if (note != null)
+            {
+                AddEditNote addEditNote = new AddEditNote();
+                addEditNote.caption = note.name;
+                addEditNote.description = note.description;
+                addEditNote.note = note.text;
+
+                if (addEditNote.ShowDialog() == true)
+                {
+                    for (int i = 0; i < Project.Instance.Projects[project].Notes.Count; i++)
+                    {
+                        if (Project.Instance.Projects[project].Notes[i].name == note.name)
+                        {
+
+                            Project.Instance.Projects[project].Notes[i].text = addEditNote.note;
+                            Project.Instance.Projects[project].Notes[i].description = addEditNote.description;
+                            Project.Instance.Projects[project].Notes[i].name = addEditNote.caption;
+                            Project.Save();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void mnuRemoveNote_Click(object sender, RoutedEventArgs e)
+        {
+            bnDeleteNote_Click(sender, e);
+        }
+
+        private void mnuAddDocument_Click(object sender, RoutedEventArgs e)
+        {
+            bnAddFile_Click(sender, e);
+        }
+
+        private void mnuEditDocument_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void mnuRemoveDocument_Click(object sender, RoutedEventArgs e)
+        {
+            bnDeleteAppFile_Click(sender, e);
+        }
+
+        private void mnuAddApp_Click(object sender, RoutedEventArgs e)
+        {
+            Button_Click(sender, e);
+        }
+
+        private void mnuEditApp_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void mnuRemoveApp_Click(object sender, RoutedEventArgs e)
+        {
+            bnDeleteAppFile_Click((object)sender, e);
         }
     }
 }

@@ -35,9 +35,32 @@ namespace ProjectOrganizer
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            draged = false;
+            
             startDragin = true;
-           
+            if (!draged)
+            {
+                if (e.ChangedButton == MouseButton.Left)
+                {
+                    if (!mainWindow.IsVisible)
+                    {
+
+                        mainWindow = new MainWindow();
+                        mainWindow.Show();
+
+                    }
+                    else
+                    {
+                        mainWindow.Activate();
+                        mainWindow.WindowState = WindowState.Normal;
+                        mainWindow.BringIntoView();
+                    }
+                }
+            }
+            else
+            {
+                Project.Save();
+            }
+            draged = false;
         }
 
         private void Window_MouseUp(object sender, MouseButtonEventArgs e)
@@ -45,16 +68,21 @@ namespace ProjectOrganizer
             startDragin=false;
             if (!draged)
             {
-                if (!mainWindow.IsVisible)
+                if (e.ChangedButton == MouseButton.Left)
                 {
-                    mainWindow=new MainWindow();
-                    mainWindow.Show();
-                }
-                else
-                {
-                    mainWindow.Activate();
-                    mainWindow.WindowState=WindowState.Normal;
-                    mainWindow.BringIntoView();
+                    if (!mainWindow.IsVisible)
+                    {
+
+                        mainWindow = new MainWindow();
+                        mainWindow.Show();
+
+                    }
+                    else
+                    {
+                        mainWindow.Activate();
+                        mainWindow.WindowState = WindowState.Normal;
+                        mainWindow.BringIntoView();
+                    }
                 }
             }
             else
@@ -68,6 +96,20 @@ namespace ProjectOrganizer
             if(Mouse.LeftButton==MouseButtonState.Pressed)
                 this.DragMove();
             draged = true;
+        }
+
+        private void mnuCloseWindow_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
+
+        private void mnuCloseWindow_Click(object sender, MouseButtonEventArgs e)
+        {
+            if (mainWindow.IsVisible)
+            {
+                mainWindow.Close();               
+            }
+            Application.Current.Shutdown();
         }
     }
 }
