@@ -17,6 +17,7 @@
         </Grid.ColumnDefinitions>
         <Grid.ContextMenu>
             <ContextMenu VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="Auto" Height="Auto">
+                <MenuItem Name="mnuShow" Click="mnuShow_Click" Header="Show"></MenuItem>
                 <MenuItem Name="mnuCloseAllWindows" Click="mnuCloseAllWindows_Click" Header="Close all windows"></MenuItem>
                 <MenuItem Header="Exit" Name="mnuCloseWindow" Click="mnuCloseWindow_Click"></MenuItem>
                 

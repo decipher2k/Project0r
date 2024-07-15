@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ControlzEx.Standard;
 using Microsoft.VisualBasic;
+using Microsoft.Win32;
 
 namespace ProjectOrganizer
 {
@@ -121,6 +122,19 @@ namespace ProjectOrganizer
         private void mnuExit_Click(object sender, RoutedEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
+        }
+
+        private void mnuStartWithWindows_Click(object sender, RoutedEventArgs e)
+        {
+   
+                RegistryKey rk = Registry.CurrentUser.OpenSubKey
+                    ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+
+                if (mnuStartWithWindows.IsChecked==true)
+                    rk.SetValue("ProjectAssistant", System.Windows.Application.ResourceAssembly.Location);
+                else
+                    rk.DeleteValue("ProjectAssistant", false);
+
         }
     }
 }

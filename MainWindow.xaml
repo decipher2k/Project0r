@@ -42,9 +42,10 @@
         <Menu Height="20" Grid.Row="1" >
             <MenuItem Header="File">
                 <MenuItem Header="Connect to MS Teams" IsEnabled="False"/>
+                <MenuItem Name="mnuStartWithWindows" Header="Start with Windows" IsCheckable="True" Click="mnuStartWithWindows_Click"></MenuItem>
                 <MenuItem Name="mnuExit" Header="Exit" Click="mnuExit_Click"/>
             </MenuItem>
-            
+
             <MenuItem Header="Project">
                 <MenuItem x:Name="mnuProject" Header="Add Project" Click="mnuProject_Click"/>
                 <MenuItem x:Name="mnuRenameProject" Header="Rename Project" Click="mnuRenameProject_Click"/>

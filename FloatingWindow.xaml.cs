@@ -1,4 +1,5 @@
-﻿using Orchestra;
+﻿using Microsoft.Win32;
+using Orchestra;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.Composition.Primitives;
@@ -14,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace ProjectOrganizer
 {
@@ -35,7 +37,10 @@ namespace ProjectOrganizer
             Top = Project.Instance.y;
         }
 
-        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+     
+    
+
+    private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             
             startDragin = true;
@@ -141,6 +146,21 @@ namespace ProjectOrganizer
         private void mnuCloseAllWindows_Click(object sender, RoutedEventArgs e)
         {
            closeAllWindows();
+        }
+
+        private void mnuShow_Click(object sender, RoutedEventArgs e)
+        {
+            if (!mainWindow.IsVisible)
+            {
+                mainWindow = new MainWindow();
+                mainWindow.Show();
+            }
+            else
+            {
+                mainWindow.Activate();
+                mainWindow.WindowState = WindowState.Normal;
+                mainWindow.BringIntoView();
+            }
         }
     }
 }
