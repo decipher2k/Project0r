@@ -82,7 +82,7 @@
                         <RowDefinition Height="249*"/>
 
                     </Grid.RowDefinitions>
-                    <ToolBar Grid.ColumnSpan="2" Background="White" Padding="3,2,0,0" Margin="-3,1,-1,0" ToolBarTray.IsLocked="True">
+                    <ToolBar Grid.ColumnSpan="2" Background="White" Padding="3,2,0,0" Margin="-3,1,-20,0" ToolBarTray.IsLocked="True" ClipToBounds="True">
                         <Button x:Name="bnAddProgram" ToolTip="Add Program" Height="16" Width="16" BorderBrush="Black" Cursor="Hand" Style="{DynamicResource ButtonStyle}" Click="Button_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="/monitor.png"/>
@@ -143,7 +143,7 @@
                         </RowDefinition>
 
                     </Grid.RowDefinitions>
-                    <ToolBar  Background="White" Padding="3,0,0,0" Margin="-3,0,0,0" ToolBarTray.IsLocked="True" >
+                    <ToolBar  Background="White" Padding="3,0,0,0" Margin="-3,0,-20,0" ToolBarTray.IsLocked="True" >
                         <Button x:Name="bnAddNote"  ToolTip="Add Note" Height="16" Width="16" BorderBrush="Black" Style="{DynamicResource ButtonStyle}" Click="bnAddNote_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="/document.png"/>
@@ -183,7 +183,7 @@
                         <RowDefinition/>
 
                     </Grid.RowDefinitions>
-                    <ToolBar Grid.Row="0" Background="White" Padding="3,0,0,0" Margin="-3,0,0,0" ToolBarTray.IsLocked="True">
+                    <ToolBar Grid.Row="0" Background="White" Padding="3,0,0,0" Margin="-3,0,-20,0" ToolBarTray.IsLocked="True">
                         <Button x:Name="bnAddToDo" ToolTip="Add ToDo Item" Height="16" Width="16" BorderBrush="Black" Style="{DynamicResource ButtonStyle}" Click="bnAddToDo_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="/document.png"/>
@@ -204,7 +204,7 @@
                         <RowDefinition Height="28"></RowDefinition>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-                    <ToolBar Grid.Row="0" Background="White" Padding="0,4,0,0" Margin="-1,-8,0,1" ToolBarTray.IsLocked="True">
+                    <ToolBar Grid.Row="0" Background="White" Padding="0,4,0,0" Margin="-1,-8,-16,1" ToolBarTray.IsLocked="True">
                         <Button x:Name="bnAddCalendar" Margin="0,3,0,0" ToolTip="Add Calendar Item" Height="16" Width="16" BorderBrush="Black" Style="{DynamicResource ButtonStyle}" Click="bnAddCalendar_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="/document.png"/>
