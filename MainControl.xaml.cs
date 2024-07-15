@@ -1,4 +1,6 @@
 ﻿using Catel;
+using ControlzEx;
+using MaterialDesignThemes.Wpf;
 using Microsoft.Win32;
 using Orc.Controls;
 using Orchestra;
@@ -18,6 +20,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
@@ -122,9 +125,9 @@ namespace ProjectOrganizer
                     p.description = wnd.description;
                     p.name = wnd.name;
                     p.startOnce = wnd.startOnce;
-                    Icon result = (Icon)null;
+                    System.Drawing.Icon result = (System.Drawing.Icon)null;
 
-                    result = Icon.ExtractAssociatedIcon(wnd.file);
+                    result = System.Drawing.Icon.ExtractAssociatedIcon(wnd.file);
                     if (result != null)
                     {
                         ImageSource img = result.ToImageSource();
@@ -148,17 +151,24 @@ namespace ProjectOrganizer
                 p.description = wnd.description;
                 p.name = wnd.name;
                 p.startOnce = wnd.startOnce;
-                Icon result = (Icon)null;
+                System.Drawing.Icon result = (System.Drawing.Icon)null;
+                ImageSource img;
 
-                result = Icon.ExtractAssociatedIcon(wnd.file);
-                if (result != null)
+                try
                 {
-                    ImageSource img = result.ToImageSource();
-                    p.picture = img;
-                    dat.Files.Add(p);
-                    Project.Instance.Projects[project] = dat;
-                    Project.Save();
+                    result = System.Drawing.Icon.ExtractAssociatedIcon(wnd.file);
+                    img = result.ToImageSource();
                 }
+                catch
+                {
+                    img = Imaging.CreateBitmapSourceFromHBitmap(new System.Drawing.Bitmap(System.Drawing.Image.FromFile(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location)+ "\\folder.png")).GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                }
+                 
+                p.picture = img;
+                dat.Files.Add(p);
+                Project.Instance.Projects[project] = dat;
+                Project.Save();
+                
             }
         }
      
@@ -527,9 +537,9 @@ namespace ProjectOrganizer
                     p.name = wnd.name;
                     p.startOnce = wnd.startOnce;
 
-                    Icon result = (Icon)null;
+                    System.Drawing.Icon result = (System.Drawing.Icon)null;
 
-                    result = Icon.ExtractAssociatedIcon(wnd.file);
+                    result = System.Drawing.Icon.ExtractAssociatedIcon(wnd.file);
                     if (result != null)
                     {
                         ImageSource img = result.ToImageSource();
@@ -585,9 +595,9 @@ namespace ProjectOrganizer
                         p.name = wnd.name;
                         p.startOnce = wnd.startOnce;
 
-                        Icon result = (Icon)null;
+                        System.Drawing.Icon result = (System.Drawing.Icon)null;
 
-                        result = Icon.ExtractAssociatedIcon(wnd.file);
+                        result = System.Drawing.Icon.ExtractAssociatedIcon(wnd.file);
                         if (result != null)
                         {
                             ImageSource img = result.ToImageSource();

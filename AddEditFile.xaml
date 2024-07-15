@@ -15,12 +15,13 @@
         <Label x:Name="lblDescription" Content="Description" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbDescription" HorizontalAlignment="Left" Margin="21,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
         <Label x:Name="lblFile" Content="File" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbFile" HorizontalAlignment="Left" Margin="21,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="162"/>
-        <Button x:Name="bnOpenFile" Content="..." HorizontalAlignment="Left" Margin="183,131,0,0" VerticalAlignment="Top" Width="16" Height="18" Click="bnOpenFile_Click"/>
+        <TextBox x:Name="tbFile" HorizontalAlignment="Left" Margin="21,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147"/>
+        <Button x:Name="bnOpenFile" Content="F" HorizontalAlignment="Left" Margin="168,131,0,0" VerticalAlignment="Top" Width="16" Height="18" Click="bnOpenFile_Click"/>
         <Button x:Name="bnOk" Content="Ok" HorizontalAlignment="Left" Margin="110,200,0,0" VerticalAlignment="Top" Width="44" IsDefault="True" Click="bnOk_Click"/>
         <Button x:Name="bnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="159,200,0,0" VerticalAlignment="Top" IsCancel="True"/>
         <CheckBox x:Name="cbRelativePath" Content="Relative Path" HorizontalAlignment="Left" Margin="21,154,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="cbStartOnce" Content="Single Process" HorizontalAlignment="Left" Margin="21,174,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="bnOpenDirectory" Content="D" HorizontalAlignment="Left" Margin="183,131,0,0" VerticalAlignment="Top" Width="16" Height="18" Click="bnOpenDirectory_Click"/>
 
     </Grid>
 </Window>

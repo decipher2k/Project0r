@@ -7,7 +7,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ProjectOrganizer
 {
@@ -74,18 +77,28 @@ namespace ProjectOrganizer
                     }
                 }
 
+                
+
                 for (int i = 0; i < Project.Instance.Projects[project].Files.Count; i++)
                 {
                     var file = Project.Instance.Projects[project].Files[i];                    
 
                     Icon result = (Icon)null;
-                    result = Icon.ExtractAssociatedIcon(file.fileName);
-                    if (result != null)
+                    ImageSource img;
+
+                    try
                     {
-                        ImageSource img = result.ToImageSource();
-                        file.picture = img;
-                        Project.Instance.Projects[project].Files[i] = file;
+                        result = Icon.ExtractAssociatedIcon(file.fileName);
+                        img = result.ToImageSource();
                     }
+                    catch
+                    {
+                        img = Imaging.CreateBitmapSourceFromHBitmap(new System.Drawing.Bitmap(System.Drawing.Image.FromFile(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\folder.png")).GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                    }
+                                                        
+                    file.picture = img;
+                    Project.Instance.Projects[project].Files[i] = file;
+                    
                 }
             }
         }
@@ -120,13 +133,20 @@ namespace ProjectOrganizer
                         String file = app.fileName;
 
                         Icon result = (Icon)null;
-                        result = Icon.ExtractAssociatedIcon(file);
-                        if (result != null)
+                        
+                        ImageSource img;
+                        try
                         {
-                            ImageSource img = result.ToImageSource();
-                            app.picture = img;
-                            Project.Instance.Projects[project].Files[i] = app;
+                            result = Icon.ExtractAssociatedIcon(file);
+                            img = result.ToImageSource();
                         }
+                        catch
+                        {
+                            img = Imaging.CreateBitmapSourceFromHBitmap(new System.Drawing.Bitmap(System.Drawing.Image.FromFile(Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\folder.png")).GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                        }
+
+                        app.picture = img;
+                        Project.Instance.Projects[project].Files[i] = app;                        
                     }
                 }
              

@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -35,7 +36,7 @@ namespace ProjectOrganizer
         {
             if (tbFile.Text == "" || tbCaption.Text == "")
             {
-                MessageBox.Show("Please fill caption and file.");
+                System.Windows.MessageBox.Show("Please fill caption and file.");
             }
             else
             {
@@ -51,7 +52,8 @@ namespace ProjectOrganizer
 
         private void bnOpenFile_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
+            Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
+            
             if(ofd.ShowDialog()==true)
             {
                 tbFile.Text = ofd.FileName;
@@ -65,6 +67,16 @@ namespace ProjectOrganizer
             tbDescription.Text = description;
             tbFile.Text = file;
             cbStartOnce.IsChecked = startOnce;
+        }
+
+        private void bnOpenDirectory_Click(object sender, RoutedEventArgs e)
+        {
+            FolderBrowserDialog ofd = new FolderBrowserDialog();
+
+            if (ofd.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                tbFile.Text = ofd.SelectedPath;
+            }
         }
     }
 }
