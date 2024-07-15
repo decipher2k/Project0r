@@ -24,6 +24,8 @@ namespace ProjectOrganizer
         public String name;
         public String description;
         public bool relative;
+        public bool startOnce;
+
         public AddEditFile()
         {
             InitializeComponent();
@@ -31,12 +33,20 @@ namespace ProjectOrganizer
 
         private void bnOk_Click(object sender, RoutedEventArgs e)
         {
-            file=tbFile.Text;
-            name=tbCaption.Text;
-            description=tbDescription.Text;
-            relative = cbRelativePath.IsChecked==true;
-            this.DialogResult=true;
-            this.Close();
+            if (tbFile.Text == "" || tbCaption.Text == "")
+            {
+                MessageBox.Show("Please fill caption and file.");
+            }
+            else
+            {
+                file = tbFile.Text;
+                name = tbCaption.Text;
+                description = tbDescription.Text;
+                relative = cbRelativePath.IsChecked == true;
+                startOnce=cbStartOnce.IsChecked == true;
+                this.DialogResult = true;
+                this.Close();
+            }
         }
 
         private void bnOpenFile_Click(object sender, RoutedEventArgs e)
@@ -47,6 +57,14 @@ namespace ProjectOrganizer
                 tbFile.Text = ofd.FileName;
             }
                 
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            tbCaption.Text = name;
+            tbDescription.Text = description;
+            tbFile.Text = file;
+            cbStartOnce.IsChecked = startOnce;
         }
     }
 }

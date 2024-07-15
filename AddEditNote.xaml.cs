@@ -31,11 +31,18 @@ namespace ProjectOrganizer
 
         private void bnOk_Click(object sender, RoutedEventArgs e)
         {
-            caption=tbCaption.Text;
-            description=tbDescription.Text;
-            note=tbNote.Text;
-            DialogResult = true;
-            this.Close();
+            if (tbCaption.Text == "" || tbNote.Text == "")
+            {
+                MessageBox.Show("Please fill caption and note.");
+            }
+            else
+            {
+                caption = tbCaption.Text;
+                description = tbDescription.Text;
+                note = tbNote.Text;
+                DialogResult = true;
+                this.Close();
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

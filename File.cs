@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,10 @@ namespace ProjectOrganizer
         public String fileName { get; set; }
 
         public ImageSource picture { get; set; }
+        public bool startOnce { get; set; }
+
+        [NonSerialized]
+        public Process process;
 
         public override String ToString()
         {

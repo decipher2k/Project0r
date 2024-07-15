@@ -1,6 +1,8 @@
 ﻿using Orchestra;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Composition.Primitives;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -100,7 +102,11 @@ namespace ProjectOrganizer
 
         private void mnuCloseWindow_Click(object sender, RoutedEventArgs e)
         {
-           
+            if (mainWindow.IsVisible)
+            {
+                mainWindow.Close();
+            }
+            Application.Current.Shutdown();
         }
 
         private void mnuCloseWindow_Click(object sender, MouseButtonEventArgs e)
@@ -110,6 +116,31 @@ namespace ProjectOrganizer
                 mainWindow.Close();               
             }
             Application.Current.Shutdown();
+        }
+
+        private void closeAllWindows()
+        {
+            System.Diagnostics.Process[] process = System.Diagnostics.Process.GetProcesses();
+            for (int i = 0; i < process.Length; i++)
+            {
+                try
+                {
+                    if (process[i].MainWindowHandle != IntPtr.Zero && process[i].Id != Process.GetCurrentProcess().Id && process[i].ProcessName!="olk"&& process[i].ProcessName != "Teams" && !process[i].ProcessName.ToLower().Contains("explorer") && !process[i].ProcessName.Contains("ShellExperienceHost") && !process[i].ProcessName.ToLower().Contains("outlook") && !process[i].ProcessName.ToLower().Contains("teams"))
+                    {
+                        process[i].Kill();
+                    }
+                }
+                catch (Exception e)
+                {
+                    
+                }
+            }
+           
+        }
+
+        private void mnuCloseAllWindows_Click(object sender, RoutedEventArgs e)
+        {
+           closeAllWindows();
         }
     }
 }

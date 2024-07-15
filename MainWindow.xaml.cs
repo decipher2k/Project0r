@@ -117,5 +117,10 @@ namespace ProjectOrganizer
                 tabMain.Items.Remove(tabMain.SelectedItem);
             }
         }
+
+        private void mnuExit_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Application.Current.Shutdown();
+        }
     }
 }

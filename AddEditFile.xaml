@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectOrganizer"
         mc:Ignorable="d"
-        Title="File" Height="242" Width="226" WindowStyle="ToolWindow">
+        Title="File" Height="267" Width="226" WindowStyle="ToolWindow" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -17,9 +17,10 @@
         <Label x:Name="lblFile" Content="File" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="tbFile" HorizontalAlignment="Left" Margin="21,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="162"/>
         <Button x:Name="bnOpenFile" Content="..." HorizontalAlignment="Left" Margin="183,131,0,0" VerticalAlignment="Top" Width="16" Height="18" Click="bnOpenFile_Click"/>
-        <Button x:Name="bnOk" Content="Ok" HorizontalAlignment="Left" Margin="110,175,0,0" VerticalAlignment="Top" Width="44" IsDefault="True" Click="bnOk_Click"/>
-        <Button x:Name="bnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="159,175,0,0" VerticalAlignment="Top" IsCancel="True"/>
+        <Button x:Name="bnOk" Content="Ok" HorizontalAlignment="Left" Margin="110,200,0,0" VerticalAlignment="Top" Width="44" IsDefault="True" Click="bnOk_Click"/>
+        <Button x:Name="bnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="159,200,0,0" VerticalAlignment="Top" IsCancel="True"/>
         <CheckBox x:Name="cbRelativePath" Content="Relative Path" HorizontalAlignment="Left" Margin="21,154,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="cbStartOnce" Content="Single Process" HorizontalAlignment="Left" Margin="21,174,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
