@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectOrganizer"
         mc:Ignorable="d"
-         Height="438" Width="786" Topmost="False" ResizeMode="NoResize" Loaded="Window_Loaded"  WindowStartupLocation="CenterScreen" Icon="/icon_new4-Photoroom.png" WindowStyle="None">
+         Height="438" Width="786" Topmost="False" ResizeMode="NoResize" Loaded="Window_Loaded"  WindowStartupLocation="CenterScreen" Icon="/icon_final-Photoroom (1).png" WindowStyle="None">
     <Window.Resources>
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="Transparent" />

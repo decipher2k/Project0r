@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>icon_new4-Photoroom.ico</ApplicationIcon>
+    <ApplicationIcon>icon_final-Photoroom %281%29 %281%29.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Catel.Core, Version=5.12.10.0, Culture=neutral, processorArchitecture=MSIL">
@@ -366,6 +366,15 @@
     <EmbeddedResource Include="folder.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon_final-Photoroom %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon_final-Photoroom %281%29.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="icon_final-Photoroom %281%29 %281%29.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
