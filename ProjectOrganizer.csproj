@@ -353,5 +353,8 @@
   <ItemGroup>
     <Resource Include="icon_new4-Photoroom.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="monitor.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

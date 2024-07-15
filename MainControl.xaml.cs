@@ -229,7 +229,7 @@ namespace ProjectOrganizer
                 calCalendar.SelectedDate = calendar.date;
             }
         }
-
+        Control currentLB=null;
         private void bnAddCalendar_Click(object sender, RoutedEventArgs e)
         {
             lbCalendar.SelectedItem = null;
@@ -239,6 +239,79 @@ namespace ProjectOrganizer
             tbCalendarFrom.Text = "";
             tbCalendarTo.Text = "";
             calCalendar.SelectedDate = DateTime.Now;
+        }
+
+        private void bnDeleteAppFile_Click(object sender, RoutedEventArgs e)
+        {
+            /*  if(lbApps.IsFocused && lbApps.SelectedItems.Count > 0)
+              {
+                  Program p=lbApps.SelectedItem as Program;
+                  for (int i = 0; i < Project.Instance.Projects[project].Apps.Count; i++)
+                  {
+                      if (Project.Instance.Projects[project].Apps[i].name == p.name)
+                      {
+                          Project.Instance.Projects[project].Apps.RemoveAt(i);
+                          break;
+                      }
+                  }
+
+                  Project.Save();
+              }*/
+
+            if (lbApps.SelectedItems.Count > 0 && currentLB==lbApps)
+            {
+                Program p = lbApps.SelectedItem as Program;
+                Project.Instance.Projects[project].Apps.Remove(p);
+                Project.Save();
+            }
+            else if(lbFiles.SelectedItems.Count>0 && currentLB==lbFiles)
+            {
+                File p = lbFiles.SelectedItem as File;
+                Project.Instance.Projects[project].Files.Remove(p);
+                Project.Save();
+            }
+        }
+
+        private void lbApps_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (lbApps.SelectedItems.Count > 0)
+                currentLB = lbApps;
+        }
+
+        private void lbFiles_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (lbFiles.SelectedItems.Count > 0)
+                currentLB = lbFiles;
+        }
+
+        private void bnDeleteNote_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbNotes.SelectedItems.Count > 0)
+            {
+                Note p = lbNotes.SelectedItem as Note;
+                Project.Instance.Projects[project].Notes.Remove(p);
+                Project.Save();
+            }
+        }
+
+        private void bnDeleteToDo_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbTodo.SelectedItems.Count > 0)
+            {
+                ToDo p = lbTodo.SelectedItem as ToDo;
+                Project.Instance.Projects[project].ToDo.Remove(p);
+                Project.Save();
+            }
+        }
+
+        private void bnDeleteCalendar_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbCalendar.SelectedItems.Count > 0)
+            {
+                Calendar p = lbCalendar.SelectedItem as Calendar;
+                Project.Instance.Projects[project].Calendar.Remove(p);
+                Project.Save();
+            }
         }
     }
 }
