@@ -44,14 +44,12 @@
                 <MenuItem Header="Connect to MS Teams"/>
                 <MenuItem Header="Exit"/>
             </MenuItem>
-            <MenuItem Header="Edit">
-
-            </MenuItem>
+            
             <MenuItem Header="Project">
                 <MenuItem x:Name="mnuProject" Header="Add Project" Click="mnuProject_Click"/>
                 <MenuItem x:Name="mnuRenameProject" Header="Rename Project" Click="mnuRenameProject_Click"/>
                 <Separator/>
-                <MenuItem Header="Remove Project"/>
+                <MenuItem x:Name="mnuRemoveProject" Header="Remove Project" Click="mnuRemoveProject_Click"/>
             </MenuItem>
         </Menu>
 

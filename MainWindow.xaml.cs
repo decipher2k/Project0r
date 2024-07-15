@@ -111,5 +111,15 @@ namespace ProjectOrganizer
         {
             this.Close();
         }
+
+        private void mnuRemoveProject_Click(object sender, RoutedEventArgs e)
+        {
+            if (System.Windows.MessageBox.Show("You are about to delete the project " + ((TabItem)tabMain.SelectedItem).Header.ToString() + "!\r\nAre you sure?","Caution", MessageBoxButton.YesNo, MessageBoxImage.Warning)==MessageBoxResult.Yes)
+            {
+                Project.Instance.Projects.Remove(((TabItem)tabMain.SelectedItem).Header.ToString());
+                Project.Save();
+                tabMain.Items.Remove(tabMain.SelectedItem);
+            }
+        }
     }
 }
