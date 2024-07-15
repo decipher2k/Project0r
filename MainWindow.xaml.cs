@@ -50,7 +50,8 @@ namespace ProjectOrganizer
                 {
                     TabItem tabItem = new TabItem();
                     tabItem.Header = key.Key;
-                    tabItem.Content = new MainControl(key.Key) {  };                    tabMain.Items.Add(tabItem);
+                    tabItem.Content = new MainControl(key.Key) {  };
+                    tabMain.Items.Add(tabItem);
                     tabMain.SelectedIndex = 0;
                 }
             }
@@ -81,11 +82,6 @@ namespace ProjectOrganizer
                 Project.Instance.Projects.Remove(((TabItem)tabMain.SelectedItem).Header.ToString());             
                 Project.Instance.Projects.Add(input,tmp);
                 Project.Save();
-                /*                tabMain.Items.Remove(((TabItem)tabMain.SelectedItem));
-                                TabItem tabItem = new TabItem();
-                                tabItem.Header = input;
-                                tabItem.Content = new MainControl(input) { VerticalAlignment = VerticalAlignment.Stretch, HorizontalAlignment = HorizontalAlignment.Stretch };
-                                tabMain.Items.Add(tabItem);*/
                 loadTabs();
             }
         }
