@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -9,13 +10,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ControlzEx.Standard;
 using Microsoft.VisualBasic;
 using Microsoft.Win32;
 
@@ -42,10 +41,10 @@ namespace ProjectOrganizer
         void loadTabs()
         {
             
-            if (Project.Instance.Projects.Count > 0)
+            if (Projects.Instance.Project.Count > 0)
             {
                 tabMain.Items.Clear();
-                var lst = Project.Instance.Projects.OrderBy(project => project.Key);
+                var lst = Projects.Instance.Project.OrderBy(project => project.Key);
 
                 foreach (KeyValuePair<String,Data> key in lst)
                 {
@@ -61,28 +60,28 @@ namespace ProjectOrganizer
         bool noProjects = true;
         private void mnuProject_Click(object sender, RoutedEventArgs e)
         {
-            string input = VipMessageBox.MessageBox.InputBoxVIP.Show(this, "Project Name");
+            string input = Essy.Tools.InputBox.InputBox.ShowInputBox("Project Name");
             if (input != null && input != "")
             {
                 if(noProjects)
                     tabMain.Items.Clear();
                 noProjects = false;
-                Project.Instance.Projects.Add(input, new Data());
+                Projects.Instance.Project.Add(input, new Data());
                 loadTabs();
-                Project.Save();
+                Projects.Save();
                 tabMain.SelectedIndex = 0;
             }
         }
 
         private void mnuRenameProject_Click(object sender, RoutedEventArgs e)
         {
-            string input = VipMessageBox.MessageBox.InputBoxVIP.Show(this, "Project Name");
+            string input = Essy.Tools.InputBox.InputBox.ShowInputBox("Project Name");
             if(input != null && input !="")
             {
-                Data tmp = Project.Instance.Projects[((TabItem)tabMain.SelectedItem).Header.ToString()];
-                Project.Instance.Projects.Remove(((TabItem)tabMain.SelectedItem).Header.ToString());             
-                Project.Instance.Projects.Add(input,tmp);
-                Project.Save();
+                Data tmp = Projects.Instance.Project[((TabItem)tabMain.SelectedItem).Header.ToString()];
+                Projects.Instance.Project.Remove(((TabItem)tabMain.SelectedItem).Header.ToString());             
+                Projects.Instance.Project.Add(input,tmp);
+                Projects.Save();
                 loadTabs();
             }
         }
@@ -90,7 +89,18 @@ namespace ProjectOrganizer
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             loadTabs();
-            
+            if(FloatingWindow.currentProject!="")
+            {
+                foreach (TabItem item in tabMain.Items)
+                {
+                    if(item.Header.ToString() ==FloatingWindow.currentProject)
+                    {
+                        tabMain.SelectedItem = item;
+                        break;
+                    }
+                }            
+            }
+            loaded = true;
         }
 
         private void Window_LostFocus(object sender, RoutedEventArgs e)
@@ -113,8 +123,8 @@ namespace ProjectOrganizer
         {
             if (System.Windows.MessageBox.Show("You are about to delete the project " + ((TabItem)tabMain.SelectedItem).Header.ToString() + "!\r\nAre you sure?","Caution", MessageBoxButton.YesNo, MessageBoxImage.Warning)==MessageBoxResult.Yes)
             {
-                Project.Instance.Projects.Remove(((TabItem)tabMain.SelectedItem).Header.ToString());
-                Project.Save();
+                Projects.Instance.Project.Remove(((TabItem)tabMain.SelectedItem).Header.ToString());
+                Projects.Save();
                 tabMain.Items.Remove(tabMain.SelectedItem);
             }
         }
@@ -135,6 +145,17 @@ namespace ProjectOrganizer
                 else
                     rk.DeleteValue("ProjectAssistant", false);
 
+        }
+        bool loaded = false;
+        private void tabMain_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (loaded == true)
+            {
+                if (((TabItem)tabMain.SelectedItem) != null)
+                {
+                    FloatingWindow.currentProject = ((TabItem)tabMain.SelectedItem).Header.ToString();
+                }
+            }
         }
     }
 }

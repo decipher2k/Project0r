@@ -26,6 +26,7 @@ namespace ProjectOrganizer
         public String description;
         public bool relative;
         public bool startOnce;
+        public bool isExe = false;
 
         public AddEditFile()
         {
@@ -53,8 +54,11 @@ namespace ProjectOrganizer
         private void bnOpenFile_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
-            
-            if(ofd.ShowDialog()==true)
+            if(isExe==true)
+                ofd.Filter = "Executable Files|*.exe;*.bat;*.cmd;*.ps1";
+            else
+                ofd.Filter = "All Files|*.*";
+            if (ofd.ShowDialog()==true)
             {
                 tbFile.Text = ofd.FileName;
             }

@@ -1,5 +1,4 @@
-﻿using Orchestra;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -15,14 +14,14 @@ using System.Windows.Media.Imaging;
 namespace ProjectOrganizer
 {
     [Serializable]
-    public class Project
+    public class Projects
     {
         public double x { get; set; } = 0;
         public double y { get; set; } = 0; 
 
-        public static Project Instance;
-        public Dictionary<String, Data> Projects=new Dictionary<string, Data>();
-        public Project()
+        public static Projects Instance;
+        public Dictionary<String, Data> Project=new Dictionary<string, Data>();
+        public Projects()
         {
             Instance = this;
         }
@@ -33,21 +32,21 @@ namespace ProjectOrganizer
             Instance.x=FloatingWindow.Instance.Left;
             Instance.y =FloatingWindow.Instance.Top;
 
-            foreach (String project in Instance.Projects.Keys)
+            foreach (String project in Instance.Project.Keys)
             {
-                for (int i = 0; i < Project.Instance.Projects[project].Apps.Count; i++)
+                for (int i = 0; i < ProjectOrganizer.Projects.Instance.Project[project].Apps.Count; i++)
                 {
-                    var app = Project.Instance.Projects[project].Apps[i];
+                    var app = ProjectOrganizer.Projects.Instance.Project[project].Apps[i];
                     String file = app.executaleFile;                                                         
                     app.picture = null;
                 }
             }
 
-            foreach (String project in Instance.Projects.Keys)
+            foreach (String project in Instance.Project.Keys)
             {
-                for (int i = 0; i < Project.Instance.Projects[project].Files.Count; i++)
+                for (int i = 0; i < ProjectOrganizer.Projects.Instance.Project[project].Files.Count; i++)
                 {
-                    var app = Project.Instance.Projects[project].Files[i];
+                    var app = ProjectOrganizer.Projects.Instance.Project[project].Files[i];
                     String file = app.fileName;
                     app.picture = null;
                 }
@@ -60,28 +59,32 @@ namespace ProjectOrganizer
             }
             String text=Newtonsoft.Json.JsonConvert.SerializeObject(Instance);
             System.IO.File.WriteAllText(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData)+"\\Project0r\\settings.json", text);
-            foreach (String project in Instance.Projects.Keys)
+            foreach (String project in Instance.Project.Keys)
             {
-                for (int i = 0; i < Project.Instance.Projects[project].Apps.Count; i++)
+                for (int i = 0; i < ProjectOrganizer.Projects.Instance.Project[project].Apps.Count; i++)
                 {
-                    var app = Project.Instance.Projects[project].Apps[i];
+                    var app = ProjectOrganizer.Projects.Instance.Project[project].Apps[i];
                     String file = app.executaleFile;
 
                     Icon result = (Icon)null;
-                    result = Icon.ExtractAssociatedIcon(file);
-                    if (result != null)
+                    try
                     {
-                        ImageSource img = result.ToImageSource();
-                        app.picture = img;
-                        Project.Instance.Projects[project].Apps[i] = app;
+                        result = Icon.ExtractAssociatedIcon(file);
+                        if (result != null)
+                        {
+                            ImageSource img = ToImageSource(result);
+                            app.picture = img;
+                            ProjectOrganizer.Projects.Instance.Project[project].Apps[i] = app;
+                        }
                     }
+                    catch (Exception ex) { }
                 }
 
                 
 
-                for (int i = 0; i < Project.Instance.Projects[project].Files.Count; i++)
+                for (int i = 0; i < ProjectOrganizer.Projects.Instance.Project[project].Files.Count; i++)
                 {
-                    var file = Project.Instance.Projects[project].Files[i];                    
+                    var file = ProjectOrganizer.Projects.Instance.Project[project].Files[i];
 
                     Icon result = (Icon)null;
                     ImageSource img;
@@ -89,7 +92,7 @@ namespace ProjectOrganizer
                     try
                     {
                         result = Icon.ExtractAssociatedIcon(file.fileName);
-                        img = result.ToImageSource();
+                        img = ToImageSource(result);
                     }
                     catch
                     {
@@ -97,48 +100,60 @@ namespace ProjectOrganizer
                     }
                                                         
                     file.picture = img;
-                    Project.Instance.Projects[project].Files[i] = file;
+                    ProjectOrganizer.Projects.Instance.Project[project].Files[i] = file;
                     
                 }
             }
         }
+        public static ImageSource ToImageSource(Icon icon)
+        {
+            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
+                icon.Handle,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
 
+            return imageSource;
+        }
         public static void Load()
         {            
             if (System.IO.File.Exists(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + "\\Project0r\\settings.json"))
             {
                 String text = System.IO.File.ReadAllText(System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData) + "\\Project0r\\settings.json");
-                Instance = (Project)Newtonsoft.Json.JsonConvert.DeserializeObject<Project>(text);
+                Instance = (Projects)Newtonsoft.Json.JsonConvert.DeserializeObject<Projects>(text);
 
-                foreach (String project in Instance.Projects.Keys)
+                foreach (String project in Instance.Project.Keys)
                 {
-                    for (int i = 0; i < Project.Instance.Projects[project].Apps.Count; i++)
+                    for (int i = 0; i < ProjectOrganizer.Projects.Instance.Project[project].Apps.Count; i++)
                     {
-                        var app = Project.Instance.Projects[project].Apps[i];
+                        var app = ProjectOrganizer.Projects.Instance.Project[project].Apps[i];
                         String file = app.executaleFile;
 
                         Icon result = (Icon)null;
-                        result = Icon.ExtractAssociatedIcon(file);
-                        if (result != null)
+                        try
                         {
-                            ImageSource img = result.ToImageSource();
-                            app.picture = img;
-                            Project.Instance.Projects[project].Apps[i] = app;                            
+                            result = Icon.ExtractAssociatedIcon(file);
+                            if (result != null)
+                            {
+                                ImageSource img = ToImageSource(result);
+                                app.picture = img;
+                                ProjectOrganizer.Projects.Instance.Project[project].Apps[i] = app;
+                            }
                         }
+                        catch (Exception ex) { }
                     }
 
-                    for (int i = 0; i < Project.Instance.Projects[project].Files.Count; i++)
+                    for (int i = 0; i < ProjectOrganizer.Projects.Instance.Project[project].Files.Count; i++)
                     {
-                        var app = Project.Instance.Projects[project].Files[i];
+                        var app = ProjectOrganizer.Projects.Instance.Project[project].Files[i];
                         String file = app.fileName;
 
                         Icon result = (Icon)null;
-                        
+
                         ImageSource img;
                         try
                         {
                             result = Icon.ExtractAssociatedIcon(file);
-                            img = result.ToImageSource();
+                            img = ToImageSource(result);
                         }
                         catch
                         {
@@ -146,15 +161,16 @@ namespace ProjectOrganizer
                         }
 
                         app.picture = img;
-                        Project.Instance.Projects[project].Files[i] = app;                        
+                        ProjectOrganizer.Projects.Instance.Project[project].Files[i] = app;                        
                     }
                 }
              
             }
             else
             {
-                Instance = new Project();
+                Instance = new Projects();
             }
         }
+
     }
 }

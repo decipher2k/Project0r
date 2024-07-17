@@ -54,7 +54,7 @@
             </MenuItem>
         </Menu>
 
-        <TabControl x:Name="tabMain" Height="Auto" Width="Auto" Grid.Row="2" Margin="0,0,-5,-5">
+        <TabControl x:Name="tabMain" Height="Auto" Width="Auto" Grid.Row="2" Margin="0,0,-5,-5" SelectionChanged="tabMain_SelectionChanged">
             <TabItem Margin="0,0,0,0" Header="Intro" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid>
                     <TextBlock>

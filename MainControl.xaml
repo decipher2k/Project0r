@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjectOrganizer"
-             xmlns:TimePicker="clr-namespace:RoyT.TimePicker;assembly=RoyT.TimePicker" x:Class="ProjectOrganizer.MainControl"
+             x:Class="ProjectOrganizer.MainControl"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -83,7 +83,7 @@
 
                     </Grid.RowDefinitions>
                     <ToolBar Grid.ColumnSpan="2" Background="White" Padding="3,2,0,0" Margin="-3,1,-20,0" ToolBarTray.IsLocked="True" ClipToBounds="True" BorderThickness="0">
-                        <Button x:Name="bnAddProgram" ToolTip="Add Program" Height="16" Width="16" BorderBrush="Black" Cursor="Hand" Style="{DynamicResource ButtonStyle}" Click="Button_Click">
+                        <Button x:Name="bnAddProgram" ToolTip="Add Program" Height="16" Width="16" BorderBrush="Black" Cursor="Hand" Style="{DynamicResource ButtonStyle}" Click="bnAddProgram_Click">
                             <Button.Background>
                                 <ImageBrush ImageSource="/monitor.png"/>
                             </Button.Background>

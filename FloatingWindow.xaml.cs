@@ -1,8 +1,6 @@
 ﻿using Microsoft.Win32;
-using Orchestra;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.Composition.Primitives;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -28,13 +26,14 @@ namespace ProjectOrganizer
         bool draged = false;
         bool startDragin=false;
         MainWindow mainWindow=new MainWindow();
+        public static String currentProject = "";
         public FloatingWindow()
         {
             Instance = this;
             InitializeComponent();
-            Project.Load();
-            Left = Project.Instance.x;
-            Top = Project.Instance.y;
+            Projects.Load();
+            Left = Projects.Instance.x;
+            Top = Projects.Instance.y;
         }
 
      
@@ -65,7 +64,7 @@ namespace ProjectOrganizer
             }
             else
             {
-                Project.Save();
+                Projects.Save();
             }
             draged = false;
         }
@@ -94,7 +93,7 @@ namespace ProjectOrganizer
             }
             else
             {
-                Project.Save();
+                Projects.Save();
             }
         }
 

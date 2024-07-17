@@ -1,9 +1,4 @@
-﻿using Catel;
-using ControlzEx;
-using MaterialDesignThemes.Wpf;
-using Microsoft.Win32;
-using Orc.Controls;
-using Orchestra;
+﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -39,7 +34,7 @@ namespace ProjectOrganizer
         public MainControl(String _project)
         {
             project = _project;
-            this.dat =(Data) Project.Instance.Projects.Where(a=>a.Key==project).First().Value;
+            this.dat =(Data) Projects.Instance.Project.Where(a=>a.Key==project).First().Value;
             InitializeComponent();           
 
             lbApps.ItemsSource = dat.Apps;
@@ -107,12 +102,21 @@ namespace ProjectOrganizer
 
         }
 
-        
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        public static ImageSource ToImageSource(Icon icon)
+        {
+            ImageSource imageSource = Imaging.CreateBitmapSourceFromHIcon(
+                icon.Handle,
+                Int32Rect.Empty,
+                BitmapSizeOptions.FromEmptyOptions());
+
+            return imageSource;
+        }
+        private void bnAddProgram_Click(object sender, RoutedEventArgs e)
         {
             AddEditFile wnd = new AddEditFile();
-            if(wnd.ShowDialog()==true)
+            wnd.isExe = true;
+            if (wnd.ShowDialog()==true)
             {
                 if (!System.IO.File.Exists(wnd.file))
                 {
@@ -124,17 +128,17 @@ namespace ProjectOrganizer
                     p.executaleFile = wnd.file;
                     p.description = wnd.description;
                     p.name = wnd.name;
-                    p.startOnce = wnd.startOnce;
+                    p.startOnce = wnd.startOnce;                   
                     System.Drawing.Icon result = (System.Drawing.Icon)null;
 
                     result = System.Drawing.Icon.ExtractAssociatedIcon(wnd.file);
                     if (result != null)
                     {
-                        ImageSource img = result.ToImageSource();
+                        ImageSource img = ToImageSource(result);
                         p.picture = img;
                         dat.Apps.Add(p);
-                        Project.Instance.Projects[project] = dat;
-                        Project.Save();
+                        Projects.Instance.Project[project] = dat;
+                        Projects.Save();
                     }
                 }
             }
@@ -144,6 +148,7 @@ namespace ProjectOrganizer
         private void bnAddFile_Click(object sender, RoutedEventArgs e)
         {
             AddEditFile wnd = new AddEditFile();
+            wnd.isExe = false;
             if (wnd.ShowDialog() == true)
             {
                 File p = new File();
@@ -157,7 +162,7 @@ namespace ProjectOrganizer
                 try
                 {
                     result = System.Drawing.Icon.ExtractAssociatedIcon(wnd.file);
-                    img = result.ToImageSource();
+                    img = ToImageSource(result);
                 }
                 catch
                 {
@@ -166,8 +171,8 @@ namespace ProjectOrganizer
                  
                 p.picture = img;
                 dat.Files.Add(p);
-                Project.Instance.Projects[project] = dat;
-                Project.Save();
+                Projects.Instance.Project[project] = dat;
+                Projects.Save();
                 
             }
         }
@@ -216,8 +221,8 @@ namespace ProjectOrganizer
                 note.text = wnd.note;
                 note.description = wnd.description;
                 note.name = wnd.caption;
-                Project.Instance.Projects[project].Notes.Add(note);
-                Project.Save();
+                Projects.Instance.Project[project].Notes.Add(note);
+                Projects.Save();
             }
            
         }
@@ -230,8 +235,8 @@ namespace ProjectOrganizer
                 ToDo toDo = new ToDo();
                 toDo.caption = wnd.caption;
                 toDo.description = wnd.note;
-                Project.Instance.Projects[project].ToDo.Add(toDo);
-                Project.Save();
+                Projects.Instance.Project[project].ToDo.Add(toDo);
+                Projects.Save();
             }
 
         }
@@ -248,15 +253,15 @@ namespace ProjectOrganizer
 
                 if(addEditNote.ShowDialog() == true)
                 {
-                    for (int i = 0; i < Project.Instance.Projects[project].Notes.Count; i++)
+                    for (int i = 0; i < Projects.Instance.Project[project].Notes.Count; i++)
                     {
-                        if (Project.Instance.Projects[project].Notes[i].name == note.name)
+                        if (Projects.Instance.Project[project].Notes[i].name == note.name)
                         {
 
-                            Project.Instance.Projects[project].Notes[i].text = addEditNote.note;
-                            Project.Instance.Projects[project].Notes[i].description = addEditNote.description;
-                            Project.Instance.Projects[project].Notes[i].name = addEditNote.caption;
-                            Project.Save();
+                            Projects.Instance.Project[project].Notes[i].text = addEditNote.note;
+                            Projects.Instance.Project[project].Notes[i].description = addEditNote.description;
+                            Projects.Instance.Project[project].Notes[i].name = addEditNote.caption;
+                            Projects.Save();
                             break;
                         }
                     }
@@ -276,14 +281,14 @@ namespace ProjectOrganizer
 
                 if (addEditNote.ShowDialog() == true)
                 {
-                    for (int i = 0; i < Project.Instance.Projects[project].ToDo.Count; i++)
+                    for (int i = 0; i < Projects.Instance.Project[project].ToDo.Count; i++)
                     {
-                        if (Project.Instance.Projects[project].ToDo[i].caption == note.caption)
+                        if (Projects.Instance.Project[project].ToDo[i].caption == note.caption)
                         {
 
-                            Project.Instance.Projects[project].ToDo[i].description = addEditNote.note;
-                            Project.Instance.Projects[project].ToDo[i].caption = addEditNote.caption;                            
-                            Project.Save();
+                            Projects.Instance.Project[project].ToDo[i].description = addEditNote.note;
+                            Projects.Instance.Project[project].ToDo[i].caption = addEditNote.caption;                            
+                            Projects.Save();
                             break;
                         }
                     }
@@ -309,8 +314,8 @@ namespace ProjectOrganizer
                     toDo.to = DateTime.Parse(tbCalendarTo.Text);
                     toDo.handled = false;
                     toDo.date = (DateTime)calCalendar.SelectedDate;
-                    Project.Instance.Projects[project].Calendar.Add(toDo);
-                    Project.Save();
+                    Projects.Instance.Project[project].Calendar.Add(toDo);
+                    Projects.Save();
                 }
                 catch (Exception)
                 {
@@ -348,29 +353,29 @@ namespace ProjectOrganizer
             /*  if(lbApps.IsFocused && lbApps.SelectedItems.Count > 0)
               {
                   Program p=lbApps.SelectedItem as Program;
-                  for (int i = 0; i < Project.Instance.Projects[project].Apps.Count; i++)
+                  for (int i = 0; i < Projects.Instance.Project[project].Apps.Count; i++)
                   {
-                      if (Project.Instance.Projects[project].Apps[i].name == p.name)
+                      if (Projects.Instance.Project[project].Apps[i].name == p.name)
                       {
-                          Project.Instance.Projects[project].Apps.RemoveAt(i);
+                          Projects.Instance.Project[project].Apps.RemoveAt(i);
                           break;
                       }
                   }
 
-                  Project.Save();
+                  Projects.Save();
               }*/
 
             if (lbApps.SelectedItems.Count > 0 && currentLB==lbApps)
             {
                 Program p = lbApps.SelectedItem as Program;
-                Project.Instance.Projects[project].Apps.Remove(p);
-                Project.Save();
+                Projects.Instance.Project[project].Apps.Remove(p);
+                Projects.Save();
             }
             else if(lbFiles.SelectedItems.Count>0 && currentLB==lbFiles)
             {
                 File p = lbFiles.SelectedItem as File;
-                Project.Instance.Projects[project].Files.Remove(p);
-                Project.Save();
+                Projects.Instance.Project[project].Files.Remove(p);
+                Projects.Save();
             }
         }
 
@@ -391,8 +396,8 @@ namespace ProjectOrganizer
             if (lbNotes.SelectedItems.Count > 0)
             {
                 Note p = lbNotes.SelectedItem as Note;
-                Project.Instance.Projects[project].Notes.Remove(p);
-                Project.Save();
+                Projects.Instance.Project[project].Notes.Remove(p);
+                Projects.Save();
             }
         }
 
@@ -401,8 +406,8 @@ namespace ProjectOrganizer
             if (lbTodo.SelectedItems.Count > 0)
             {
                 ToDo p = lbTodo.SelectedItem as ToDo;
-                Project.Instance.Projects[project].ToDo.Remove(p);
-                Project.Save();
+                Projects.Instance.Project[project].ToDo.Remove(p);
+                Projects.Save();
             }
         }
 
@@ -411,8 +416,8 @@ namespace ProjectOrganizer
             if (lbCalendar.SelectedItems.Count > 0)
             {
                 Calendar p = lbCalendar.SelectedItem as Calendar;
-                Project.Instance.Projects[project].Calendar.Remove(p);
-                Project.Save();
+                Projects.Instance.Project[project].Calendar.Remove(p);
+                Projects.Save();
             }
         }
 
@@ -430,7 +435,7 @@ namespace ProjectOrganizer
         {
             if (lbCalendar.SelectedItems.Count > 0)
             {
-                Project.Instance.Projects[project].Calendar.Remove((Calendar)lbCalendar.SelectedItem);
+                Projects.Instance.Project[project].Calendar.Remove((Calendar)lbCalendar.SelectedItem);
                 tbCalendarCaption.Text = string.Empty;
                 tbCalendarDetails.Text = string.Empty;
                 tbCalendarFrom.Text = string.Empty;
@@ -456,14 +461,14 @@ namespace ProjectOrganizer
 
                 if (addEditNote.ShowDialog() == true)
                 {
-                    for (int i = 0; i < Project.Instance.Projects[project].ToDo.Count; i++)
+                    for (int i = 0; i < Projects.Instance.Project[project].ToDo.Count; i++)
                     {
-                        if (Project.Instance.Projects[project].ToDo[i].caption == note.caption)
+                        if (Projects.Instance.Project[project].ToDo[i].caption == note.caption)
                         {
 
-                            Project.Instance.Projects[project].ToDo[i].description = addEditNote.note;
-                            Project.Instance.Projects[project].ToDo[i].caption = addEditNote.caption;
-                            Project.Save();
+                            Projects.Instance.Project[project].ToDo[i].description = addEditNote.note;
+                            Projects.Instance.Project[project].ToDo[i].caption = addEditNote.caption;
+                            Projects.Save();
                             break;
                         }
                     }
@@ -493,15 +498,15 @@ namespace ProjectOrganizer
 
                 if (addEditNote.ShowDialog() == true)
                 {
-                    for (int i = 0; i < Project.Instance.Projects[project].Notes.Count; i++)
+                    for (int i = 0; i < Projects.Instance.Project[project].Notes.Count; i++)
                     {
-                        if (Project.Instance.Projects[project].Notes[i].name == note.name)
+                        if (Projects.Instance.Project[project].Notes[i].name == note.name)
                         {
 
-                            Project.Instance.Projects[project].Notes[i].text = addEditNote.note;
-                            Project.Instance.Projects[project].Notes[i].description = addEditNote.description;
-                            Project.Instance.Projects[project].Notes[i].name = addEditNote.caption;
-                            Project.Save();
+                            Projects.Instance.Project[project].Notes[i].text = addEditNote.note;
+                            Projects.Instance.Project[project].Notes[i].description = addEditNote.description;
+                            Projects.Instance.Project[project].Notes[i].name = addEditNote.caption;
+                            Projects.Save();
                             break;
                         }
                     }
@@ -529,6 +534,7 @@ namespace ProjectOrganizer
                 wnd.name = p.name;
                 wnd.description = p.description;
                 wnd.startOnce=p.startOnce;
+                wnd.isExe = false;
 
                 if (wnd.ShowDialog() == true)
                 {
@@ -542,7 +548,7 @@ namespace ProjectOrganizer
                     result = System.Drawing.Icon.ExtractAssociatedIcon(wnd.file);
                     if (result != null)
                     {
-                        ImageSource img = result.ToImageSource();
+                        ImageSource img = ToImageSource(result);
                         p.picture = img;
                         for (int i = 0; i < dat.Files.Count; i++)
                         {
@@ -553,8 +559,8 @@ namespace ProjectOrganizer
                             }
                         }
 
-                        Project.Instance.Projects[project] = dat;
-                        Project.Save();
+                        Projects.Instance.Project[project] = dat;
+                        Projects.Save();
                     }
                 }
             }
@@ -567,7 +573,7 @@ namespace ProjectOrganizer
 
         private void mnuAddApp_Click(object sender, RoutedEventArgs e)
         {
-            Button_Click(sender, e);
+            bnAddProgram_Click(sender, e);
         }
 
         private void mnuEditApp_Click(object sender, RoutedEventArgs e)
@@ -580,6 +586,7 @@ namespace ProjectOrganizer
                 wnd.description = p.description;
                 wnd.file = p.executaleFile;
                 wnd.startOnce = p.startOnce;
+                wnd.isExe = true;
 
                 if (wnd.ShowDialog() == true)
                 {
@@ -600,7 +607,7 @@ namespace ProjectOrganizer
                         result = System.Drawing.Icon.ExtractAssociatedIcon(wnd.file);
                         if (result != null)
                         {
-                            ImageSource img = result.ToImageSource();
+                            ImageSource img = ToImageSource(result);
                             p.picture = img;
 
                             for (int i = 0; i < dat.Apps.Count; i++)
@@ -612,8 +619,8 @@ namespace ProjectOrganizer
                                 }
                             }
 
-                            Project.Instance.Projects[project] = dat;
-                            Project.Save();
+                            Projects.Instance.Project[project] = dat;
+                            Projects.Save();
                         }
                     }
                 }
