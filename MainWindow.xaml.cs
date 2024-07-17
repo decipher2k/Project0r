@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -156,6 +157,11 @@ namespace ProjectOrganizer
                     FloatingWindow.currentProject = ((TabItem)tabMain.SelectedItem).Header.ToString();
                 }
             }
+        }
+
+        private void Label_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("https://www.paypal.com/donate/?hosted_button_id=9NHUZZDQDYYTS");
         }
     }
 }

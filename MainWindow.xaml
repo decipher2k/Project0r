@@ -70,6 +70,7 @@
             </TabItem>
         </TabControl>
         <Rectangle Grid.RowSpan="4" Stroke="Black"/>
+        <Label Content="Donate" HorizontalAlignment="Left" Margin="692,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="8" Cursor="Hand" FontFamily="Arial" FontStyle="Italic" MouseLeftButtonUp="Label_MouseLeftButtonUp"/>
 
 
     </Grid>

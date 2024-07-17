@@ -31,9 +31,9 @@ namespace ProjectOrganizer
 
         private void bnOk_Click(object sender, RoutedEventArgs e)
         {
-            if (tbCaption.Text == "" || tbNote.Text == "")
+            if (tbCaption.Text == "")
             {
-                MessageBox.Show("Please fill caption and note.");
+                MessageBox.Show("Please fill caption.");
             }
             else
             {
