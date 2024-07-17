@@ -11,7 +11,7 @@ namespace ProjectOrganizer
     {
         public String caption;
         public String description;
-
+        public long id;
         public override String ToString()
         {
             return caption;

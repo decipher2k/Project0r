@@ -20,7 +20,7 @@ namespace ProjectOrganizer
 
         [NonSerialized]
         public Process process;
-
+        public long id;
         public override String ToString()
         {
             return name;

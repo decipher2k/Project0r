@@ -128,6 +128,11 @@ namespace ProjectOrganizer
                     p.executaleFile = wnd.file;
                     p.description = wnd.description;
                     p.name = wnd.name;
+                    if(Projects.Instance.Project[project].Apps.Count == 0)
+                        p.id = 0;
+                    else
+                        p.id=Projects.Instance.Project[project].Apps.Max(a => a.id)+1;
+
                     p.startOnce = wnd.startOnce;                   
                     System.Drawing.Icon result = (System.Drawing.Icon)null;
 
@@ -151,7 +156,8 @@ namespace ProjectOrganizer
             wnd.isExe = false;
             if (wnd.ShowDialog() == true)
             {
-                File p = new File();
+                File p = new File();                
+                p.id = Projects.Instance.Project[project].Files.Count==0?0:Projects.Instance.Project[project].Files.Max(a => a.id) + 1;
                 p.fileName = wnd.file;
                 p.description = wnd.description;
                 p.name = wnd.name;
@@ -219,6 +225,10 @@ namespace ProjectOrganizer
             {
                 Note note = new Note();
                 note.text = wnd.note;
+                if(Projects.Instance.Project[project].Notes.Count==0)
+                    note.id = 0;
+                else
+                    note.id = Projects.Instance.Project[project].Notes.Max(a => a.id) + 1;
                 note.description = wnd.description;
                 note.name = wnd.caption;
                 Projects.Instance.Project[project].Notes.Add(note);
@@ -234,6 +244,7 @@ namespace ProjectOrganizer
             {
                 ToDo toDo = new ToDo();
                 toDo.caption = wnd.caption;
+                toDo.id = Projects.Instance.Project[project].ToDo.Count == 0 ? 0 : Projects.Instance.Project[project].ToDo.Max(a => a.id) + 1;
                 toDo.description = wnd.note;
                 Projects.Instance.Project[project].ToDo.Add(toDo);
                 Projects.Save();
@@ -307,15 +318,37 @@ namespace ProjectOrganizer
             {
                 try
                 {
-                    Calendar toDo = new Calendar();
-                    toDo.caption = tbCalendarCaption.Text;
-                    toDo.text = tbCalendarDetails.Text;
-                    toDo.from = DateTime.Parse(tbCalendarFrom.Text);
-                    toDo.to = DateTime.Parse(tbCalendarTo.Text);
-                    toDo.handled = false;
-                    toDo.date = (DateTime)calCalendar.SelectedDate;
-                    Projects.Instance.Project[project].Calendar.Add(toDo);
-                    Projects.Save();
+                    if (lbCalendar.SelectedItem == null)
+                    {
+                        Calendar toDo = new Calendar();
+                        
+                        toDo.caption = tbCalendarCaption.Text;
+                        toDo.text = tbCalendarDetails.Text;
+                        toDo.from = DateTime.Parse(tbCalendarFrom.Text);
+                        toDo.to = DateTime.Parse(tbCalendarTo.Text);
+                        toDo.handled = false;
+                        toDo.date = (DateTime)calCalendar.SelectedDate;
+                        toDo.id = Projects.Instance.Project[project].Calendar.Count == 0 ? 0 : Projects.Instance.Project[project].Calendar.Max(a => a.id) + 1;
+                        Projects.Instance.Project[project].Calendar.Add(toDo);
+                        Projects.Save();
+                        bnAddCalendar_Click(sender, e);
+                    }
+                    else
+                    {
+                        Calendar c=(Calendar)lbCalendar.SelectedItem;
+                        for (int i = 0; i < Projects.Instance.Project[project].Calendar.Count; i++)
+                        {
+                            if (Projects.Instance.Project[project].Calendar[i].id == c.id)
+                            {
+                                Projects.Instance.Project[project].Calendar[i].from = DateTime.Parse(tbCalendarFrom.Text);
+                                Projects.Instance.Project[project].Calendar[i].to = DateTime.Parse(tbCalendarTo.Text);
+                                Projects.Instance.Project[project].Calendar[i].text = tbCalendarDetails.Text;
+                                Projects.Save();
+                                break;
+                            }
+                        }
+                        
+                    }
                 }
                 catch (Exception)
                 {
@@ -329,23 +362,36 @@ namespace ProjectOrganizer
             Calendar calendar = (Calendar)lbCalendar.SelectedItem;
             if (calendar != null)
             {
+                bnCreateCalendar.Content = "Save";
+                
                 tbCalendarCaption.Text=calendar.caption;
                 tbCalendarDetails.Text = calendar.text;
                 tbCalendarFrom.Text=calendar.from.ToShortTimeString();
                 tbCalendarTo.Text = calendar.to.ToShortTimeString();
                 calCalendar.SelectedDate = calendar.date;
             }
+            else
+            {
+                bnCreateCalendar.Content = "Create";
+                
+                tbCalendarCaption.Text = "";
+                tbCalendarFrom.Text = "";
+                tbCalendarTo.Text = "";
+                tbCalendarDetails.Text = "";
+                calCalendar.SelectedDate = null;
+            }
         }
         Control currentLB=null;
         private void bnAddCalendar_Click(object sender, RoutedEventArgs e)
         {
             lbCalendar.SelectedItem = null;
-
+            
             tbCalendarCaption.Text = "";
             tbCalendarDetails.Text = "";
             tbCalendarFrom.Text = "";
             tbCalendarTo.Text = "";
             calCalendar.SelectedDate = DateTime.Now;
+
         }
 
         private void bnDeleteAppFile_Click(object sender, RoutedEventArgs e)
@@ -463,7 +509,7 @@ namespace ProjectOrganizer
                 {
                     for (int i = 0; i < Projects.Instance.Project[project].ToDo.Count; i++)
                     {
-                        if (Projects.Instance.Project[project].ToDo[i].caption == note.caption)
+                        if (Projects.Instance.Project[project].ToDo[i].id == note.id)
                         {
 
                             Projects.Instance.Project[project].ToDo[i].description = addEditNote.note;
@@ -500,7 +546,7 @@ namespace ProjectOrganizer
                 {
                     for (int i = 0; i < Projects.Instance.Project[project].Notes.Count; i++)
                     {
-                        if (Projects.Instance.Project[project].Notes[i].name == note.name)
+                        if (Projects.Instance.Project[project].Notes[i].id == note.id)
                         {
 
                             Projects.Instance.Project[project].Notes[i].text = addEditNote.note;

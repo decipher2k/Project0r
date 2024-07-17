@@ -23,7 +23,8 @@ namespace ProjectOrganizer
         public Process process;
 
         public ImageSource picture { get; set; }
-
+        public long id;
+        
         public override String ToString()
         {
             return name;

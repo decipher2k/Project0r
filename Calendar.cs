@@ -14,6 +14,8 @@ namespace ProjectOrganizer
         public String text;
         public String caption;
         public bool handled;
+        public long id;
+        
 
         public override string ToString()
         {

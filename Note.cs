@@ -12,7 +12,7 @@ namespace ProjectOrganizer
         public String name { get; set; }
         public String description { get; set; }
         public String text { get; set; }
-
+        public long id;
         public override String ToString()
         {
             return text;
