@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Essy.Tools.InputBox;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Net.WebRequestMethods;
 
 namespace ProjectOrganizer
 {
@@ -676,6 +678,77 @@ namespace ProjectOrganizer
         private void mnuRemoveApp_Click(object sender, RoutedEventArgs e)
         {
             bnDeleteAppFile_Click((object)sender, e);
+        }
+
+        private void lbApps_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                // Note that you can have more than one file.
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (String file in files)
+                {
+                    if (file.EndsWith(".exe") || file.EndsWith(".bat") || file.EndsWith(".cmd") || file.EndsWith(".lnk") || file.EndsWith(".ps1"))
+                    {
+                        Program p = new Program();
+                        p.executaleFile = file;
+                        p.description = "";
+                        p.name = InputBox.ShowInputBox("Please enter a title for " + System.IO.Path.GetFileName(file));
+                        if (Projects.Instance.Project[project].Apps.Count == 0)
+                            p.id = 0;
+                        else
+                            p.id = Projects.Instance.Project[project].Apps.Max(a => a.id) + 1;
+
+                        p.startOnce = false;
+                        System.Drawing.Icon result = (System.Drawing.Icon)null;
+
+                        result = System.Drawing.Icon.ExtractAssociatedIcon(file);
+                        if (result != null)
+                        {
+                            ImageSource img = ToImageSource(result);
+                            p.picture = img;
+                            dat.Apps.Add(p);
+                            Projects.Instance.Project[project] = dat;
+                            Projects.Save();
+                        }
+                    }
+                }
+            }
+        }
+
+        private void lbFiles_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                // Note that you can have more than one file.
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                foreach (String file in files)
+                {
+                    File p = new File();
+                    p.id = Projects.Instance.Project[project].Files.Count == 0 ? 0 : Projects.Instance.Project[project].Files.Max(a => a.id) + 1;
+                    p.fileName = file;
+                    p.description = "";
+                    p.name = InputBox.ShowInputBox("Please enter a title for "+System.IO.Path.GetFileName(file));
+                    p.startOnce = false;
+                    System.Drawing.Icon result = (System.Drawing.Icon)null;
+                    ImageSource img;
+
+                    try
+                    {
+                        result = System.Drawing.Icon.ExtractAssociatedIcon(file);
+                        img = ToImageSource(result);
+                    }
+                    catch
+                    {
+                        img = Imaging.CreateBitmapSourceFromHBitmap(new System.Drawing.Bitmap(System.Drawing.Image.FromFile(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\folder.png")).GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                    }
+
+                    p.picture = img;
+                    dat.Files.Add(p);
+                    Projects.Instance.Project[project] = dat;
+                    Projects.Save();
+                }
+            }
         }
     }
 }

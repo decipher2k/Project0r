@@ -99,7 +99,7 @@
                             </Button.Background>
                         </Button>
                     </ToolBar>
-                    <ListBox  x:Name="lbApps" Width="Auto" d:ItemsSource="{Binding Apps, Mode=OneWay}" Grid.Column="0" Grid.Row="1" MouseDoubleClick="ListBox_MouseDoubleClick" MouseUp="lbApps_MouseUp" Style="{DynamicResource ItemsSmall}" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,0,382,0"  >
+                    <ListBox  x:Name="lbApps" Width="Auto" d:ItemsSource="{Binding Apps, Mode=OneWay}" Grid.Column="0" Grid.Row="1" MouseDoubleClick="ListBox_MouseDoubleClick" MouseUp="lbApps_MouseUp" Style="{DynamicResource ItemsSmall}" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="0,0,382,0" Drop="lbApps_Drop" AllowDrop="True">
                         <ListBox.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Click="mnuAddApp_Click" Name="mnuAddApp" Header="Add"></MenuItem>
@@ -123,7 +123,7 @@
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>
-                    <ListBox x:Name="lbFiles" Width="Auto" d:ItemsSource="{Binding Files, Mode=OneWay}" Grid.Row="1" Style="{DynamicResource ItemsSmall}" MouseDoubleClick="lbFiles_MouseDoubleClick" MouseUp="lbFiles_MouseUp" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="378,0,-1,0">
+                    <ListBox x:Name="lbFiles" Width="Auto" d:ItemsSource="{Binding Files, Mode=OneWay}" Grid.Row="1" Style="{DynamicResource ItemsSmall}" MouseDoubleClick="lbFiles_MouseDoubleClick" MouseUp="lbFiles_MouseUp" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="378,0,-1,0" Drop="lbFiles_Drop" AllowDrop="True">
                         <ListBox.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Click="mnuAddDocument_Click" Name="mnuAddDocument" Header="Add"></MenuItem>
