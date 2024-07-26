@@ -18,6 +18,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.VisualBasic;
 using Microsoft.Win32;
+using Project_Assistant;
 
 namespace ProjectOrganizer
 {
@@ -61,29 +62,38 @@ namespace ProjectOrganizer
         bool noProjects = true;
         private void mnuProject_Click(object sender, RoutedEventArgs e)
         {
-            string input = Essy.Tools.InputBox.InputBox.ShowInputBox("Project Name");
-            if (input != null && input != "")
+            MsgBox msgBox = new MsgBox("Project Name");
+            if (msgBox.ShowDialog() == true)
             {
-                if(noProjects)
-                    tabMain.Items.Clear();
-                noProjects = false;
-                Projects.Instance.Project.Add(input, new Data());
-                loadTabs();
-                Projects.Save();
-                tabMain.SelectedIndex = 0;
+                string input = msgBox.ret;
+                if (input != null && input != "")
+                {
+                    if (noProjects)
+                        tabMain.Items.Clear();
+                    noProjects = false;
+                    Projects.Instance.Project.Add(input, new Data());
+                    loadTabs();
+                    Projects.Save();
+                    tabMain.SelectedIndex = 0;
+                }
             }
         }
 
         private void mnuRenameProject_Click(object sender, RoutedEventArgs e)
         {
-            string input = Essy.Tools.InputBox.InputBox.ShowInputBox("Project Name");
-            if(input != null && input !="")
+            MsgBox msgBox = new MsgBox("Project Name");
+            if (msgBox.ShowDialog() == true)
             {
-                Data tmp = Projects.Instance.Project[((TabItem)tabMain.SelectedItem).Header.ToString()];
-                Projects.Instance.Project.Remove(((TabItem)tabMain.SelectedItem).Header.ToString());             
-                Projects.Instance.Project.Add(input,tmp);
-                Projects.Save();
-                loadTabs();
+                string input = msgBox.ret;
+
+                if (input != null && input != "")
+                {
+                    Data tmp = Projects.Instance.Project[((TabItem)tabMain.SelectedItem).Header.ToString()];
+                    Projects.Instance.Project.Remove(((TabItem)tabMain.SelectedItem).Header.ToString());
+                    Projects.Instance.Project.Add(input, tmp);
+                    Projects.Save();
+                    loadTabs();
+                }
             }
         }
 

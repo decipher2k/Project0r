@@ -1,5 +1,5 @@
-﻿using Essy.Tools.InputBox;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
+using Project_Assistant;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -693,23 +693,27 @@ namespace ProjectOrganizer
                         Program p = new Program();
                         p.executaleFile = file;
                         p.description = "";
-                        p.name = InputBox.ShowInputBox("Please enter a title for " + System.IO.Path.GetFileName(file));
-                        if (Projects.Instance.Project[project].Apps.Count == 0)
-                            p.id = 0;
-                        else
-                            p.id = Projects.Instance.Project[project].Apps.Max(a => a.id) + 1;
-
-                        p.startOnce = false;
-                        System.Drawing.Icon result = (System.Drawing.Icon)null;
-
-                        result = System.Drawing.Icon.ExtractAssociatedIcon(file);
-                        if (result != null)
+                        MsgBox msgBox = new MsgBox("Please enter a title for " + System.IO.Path.GetFileName(file));
+                        if (msgBox.ShowDialog()==true)
                         {
-                            ImageSource img = ToImageSource(result);
-                            p.picture = img;
-                            dat.Apps.Add(p);
-                            Projects.Instance.Project[project] = dat;
-                            Projects.Save();
+                            p.name = msgBox.ret;
+                            if (Projects.Instance.Project[project].Apps.Count == 0)
+                                p.id = 0;
+                            else
+                                p.id = Projects.Instance.Project[project].Apps.Max(a => a.id) + 1;
+
+                            p.startOnce = false;
+                            System.Drawing.Icon result = (System.Drawing.Icon)null;
+
+                            result = System.Drawing.Icon.ExtractAssociatedIcon(file);
+                            if (result != null)
+                            {
+                                ImageSource img = ToImageSource(result);
+                                p.picture = img;
+                                dat.Apps.Add(p);
+                                Projects.Instance.Project[project] = dat;
+                                Projects.Save();
+                            }
                         }
                     }
                 }
@@ -728,25 +732,30 @@ namespace ProjectOrganizer
                     p.id = Projects.Instance.Project[project].Files.Count == 0 ? 0 : Projects.Instance.Project[project].Files.Max(a => a.id) + 1;
                     p.fileName = file;
                     p.description = "";
-                    p.name = InputBox.ShowInputBox("Please enter a title for "+System.IO.Path.GetFileName(file));
-                    p.startOnce = false;
-                    System.Drawing.Icon result = (System.Drawing.Icon)null;
-                    ImageSource img;
-
-                    try
+                    MsgBox msgBox = new MsgBox("Please enter a title for " + System.IO.Path.GetFileName(file));
+                    if (msgBox.ShowDialog() == true)
                     {
-                        result = System.Drawing.Icon.ExtractAssociatedIcon(file);
-                        img = ToImageSource(result);
-                    }
-                    catch
-                    {
-                        img = Imaging.CreateBitmapSourceFromHBitmap(new System.Drawing.Bitmap(System.Drawing.Image.FromFile(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\folder.png")).GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
-                    }
+                        p.name = msgBox.ret;
 
-                    p.picture = img;
-                    dat.Files.Add(p);
-                    Projects.Instance.Project[project] = dat;
-                    Projects.Save();
+                        p.startOnce = false;
+                        System.Drawing.Icon result = (System.Drawing.Icon)null;
+                        ImageSource img;
+
+                        try
+                        {
+                            result = System.Drawing.Icon.ExtractAssociatedIcon(file);
+                            img = ToImageSource(result);
+                        }
+                        catch
+                        {
+                            img = Imaging.CreateBitmapSourceFromHBitmap(new System.Drawing.Bitmap(System.Drawing.Image.FromFile(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetExecutingAssembly().Location) + "\\folder.png")).GetHbitmap(), IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+                        }
+
+                        p.picture = img;
+                        dat.Files.Add(p);
+                        Projects.Instance.Project[project] = dat;
+                        Projects.Save();
+                    }
                 }
             }
         }
