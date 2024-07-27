@@ -8,7 +8,7 @@
         Title="Input" Height="150" Width="332" WindowStyle="ToolWindow" SizeToContent="WidthAndHeight" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Margin="0,0,0,0">
         <Label x:Name="lblCaption" Content="Label" HorizontalAlignment="Center" Margin="0,10,0,0" VerticalAlignment="Top" Height="26" Width="312"/>
-        <TextBox Name="tbValue" HorizontalAlignment="Left" Margin="10,37,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="294" Height="26"/>
+        <TextBox Name="tbValue" HorizontalAlignment="Left" Margin="10,37,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="294" Height="26" KeyUp="tbValue_KeyUp"/>
         <Button Content="OK" Margin="127,71,130,44" Click="Button_Click" Width="75" Height="25" RenderTransformOrigin="0.57,-2.099"/>
         <Button Content="Cancel" Margin="230,71,27,44" Click="Button_Click_1"  Width="75" Height="25"/>
     </Grid>

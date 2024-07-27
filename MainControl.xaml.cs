@@ -2,6 +2,7 @@
 using Project_Assistant;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
@@ -31,21 +32,26 @@ namespace ProjectOrganizer
     /// </summary>
     public partial class MainControl : UserControl
     {
-        Data dat;
+   
         String project;
         public MainControl(String _project)
         {
             project = _project;
-            this.dat =(Data) Projects.Instance.Project.Where(a=>a.Key==project).First().Value;
-            InitializeComponent();           
+            InitializeComponent();
 
-            lbApps.ItemsSource = dat.Apps;
-            lbFiles.ItemsSource = dat.Files;
-            lbNotes.ItemsSource = dat.Notes;
-            lbTodo.ItemsSource = dat.ToDo;
-            lbCalendar.ItemsSource = dat.Calendar;
+            reloadItems();
         }
 
+        private void reloadItems()
+        {
+            lbApps.ItemsSource = Projects.Instance.Project[project].Apps;
+            lbFiles.ItemsSource = Projects.Instance.Project[project].Files;
+            lbNotes.ItemsSource = Projects.Instance.Project[project].Notes;
+            lbTodo.ItemsSource = Projects.Instance.Project[project].ToDo;
+            lbCalendar.ItemsSource = Projects.Instance.Project[project].Calendar;
+            lbLog.ItemsSource = Projects.Instance.Project[project].Log;
+            
+        }
 
         public static class WindowHelper
         {
@@ -146,8 +152,7 @@ namespace ProjectOrganizer
                     {
                         ImageSource img = ToImageSource(result);
                         p.picture = img;
-                        dat.Apps.Add(p);
-                        Projects.Instance.Project[project] = dat;
+                        Projects.Instance.Project[project].Apps.Add(p);                       
                         Projects.Save();
                     }
                 }
@@ -181,8 +186,7 @@ namespace ProjectOrganizer
                 }
                  
                 p.picture = img;
-                dat.Files.Add(p);
-                Projects.Instance.Project[project] = dat;
+                Projects.Instance.Project[project].Files.Add(p);                
                 Projects.Save();
                 
             }
@@ -253,9 +257,28 @@ namespace ProjectOrganizer
                 toDo.description = wnd.note;
                 Projects.Instance.Project[project].ToDo.Add(toDo);
                 Projects.Save();
+                lbTodo.ItemsSource = Projects.Instance.Project[project].ToDo;
             }
 
         }
+
+        private void bnAddLog_Click(object sender, RoutedEventArgs e)
+        {
+            AddEditNote wnd = new AddEditNote();
+            if (wnd.ShowDialog() == true)
+            {
+                Log log = new Log();
+                log.caption = wnd.caption;
+                log.id = Projects.Instance.Project[project].Log.Count == 0 ? 0 : Projects.Instance.Project[project].Log.Max(a => a.id) + 1;
+                log.description = wnd.note;
+                log.date=DateTime.Now;
+                Projects.Instance.Project[project].Log.Insert(0,log);                           
+                Projects.Save();
+                lbLog.ItemsSource = Projects.Instance.Project[project].Log;
+            }
+
+        }
+
 
         private void lbNotes_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -287,23 +310,50 @@ namespace ProjectOrganizer
 
         private void lbTodo_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ToDo note = lbTodo.SelectedItem as ToDo;
-            if (note != null)
+            ToDo toDo = lbLog.SelectedItem as ToDo;
+            if (toDo != null)
             {
                 AddEditNote addEditNote = new AddEditNote();
-                addEditNote.caption = note.caption;
-                addEditNote.note = note.description;
-                
+                addEditNote.caption = toDo.caption;
+                addEditNote.note = toDo.description;
+
 
                 if (addEditNote.ShowDialog() == true)
                 {
                     for (int i = 0; i < Projects.Instance.Project[project].ToDo.Count; i++)
                     {
-                        if (Projects.Instance.Project[project].ToDo[i].caption == note.caption)
+                        if (Projects.Instance.Project[project].ToDo[i].caption == toDo.caption)
                         {
 
                             Projects.Instance.Project[project].ToDo[i].description = addEditNote.note;
-                            Projects.Instance.Project[project].ToDo[i].caption = addEditNote.caption;                            
+                            Projects.Instance.Project[project].ToDo[i].caption = addEditNote.caption;
+                            Projects.Save();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void lbLog_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            Log log = lbLog.SelectedItem as Log;
+            if (log != null)
+            {
+                AddEditNote addEditNote = new AddEditNote();
+                addEditNote.caption = log.caption;
+                addEditNote.note = log.description;
+                
+
+                if (addEditNote.ShowDialog() == true)
+                {
+                    for (int i = 0; i < Projects.Instance.Project[project].Log.Count; i++)
+                    {
+                        if (Projects.Instance.Project[project].Log[i].caption == log.caption)
+                        {
+
+                            Projects.Instance.Project[project].Log[i].description = addEditNote.note;
+                            Projects.Instance.Project[project].Log[i].caption = addEditNote.caption;                            
                             Projects.Save();
                             break;
                         }
@@ -385,6 +435,7 @@ namespace ProjectOrganizer
                 tbCalendarDetails.Text = "";
                 calCalendar.SelectedDate = null;
             }
+            reloadItems();
         }
         Control currentLB=null;
         private void bnAddCalendar_Click(object sender, RoutedEventArgs e)
@@ -457,7 +508,26 @@ namespace ProjectOrganizer
             if (lbTodo.SelectedItems.Count > 0)
             {
                 ToDo p = lbTodo.SelectedItem as ToDo;
+                if (MessageBox.Show("Move to Log?", "Move to Log", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {                          
+                    Log log = new Log();
+                    log.caption = p.caption;
+                    log.id = Projects.Instance.Project[project].Log.Count == 0 ? 0 : Projects.Instance.Project[project].Log.Max(a => a.id) + 1;
+                    log.description = p.description;
+                    log.date = DateTime.Now;
+                    Projects.Instance.Project[project].Log.Add(log);                
+                }
                 Projects.Instance.Project[project].ToDo.Remove(p);
+                Projects.Save();
+            }
+        }
+
+        private void bnDeleteLog_Click(object sender, RoutedEventArgs e)
+        {
+            if (lbLog.SelectedItems.Count > 0)
+            {
+                Log p = lbLog.SelectedItem as Log;
+                Projects.Instance.Project[project].Log.Remove(p);
                 Projects.Save();
             }
         }
@@ -500,6 +570,11 @@ namespace ProjectOrganizer
             bnDeleteToDo_Click(sender, e);
         }
 
+        private void mnuRemoveLog_Click(object sender, RoutedEventArgs e)
+        {
+            bnDeleteLog_Click(sender, e);
+        }
+
         private void mnuEditToDo_Click(object sender, RoutedEventArgs e)
         {
             ToDo note = lbTodo.SelectedItem as ToDo;
@@ -520,6 +595,36 @@ namespace ProjectOrganizer
                             Projects.Instance.Project[project].ToDo[i].description = addEditNote.note;
                             Projects.Instance.Project[project].ToDo[i].caption = addEditNote.caption;
                             Projects.Save();
+                            reloadItems();
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        private void mnuEditLog_Click(object sender, RoutedEventArgs e)
+        {
+            Log log = lbLog.SelectedItem as Log;
+            if (log != null)
+            {
+                AddEditNote addEditNote = new AddEditNote();
+                addEditNote.caption = log.caption;
+                addEditNote.note = log.description;
+
+
+                if (addEditNote.ShowDialog() == true)
+                {
+                    for (int i = 0; i < Projects.Instance.Project[project].Log.Count; i++)
+                    {
+                        if (Projects.Instance.Project[project].Log[i].id == log.id)
+                        {
+                            Log l = Projects.Instance.Project[project].Log[i];
+                            l.description = addEditNote.note;
+                            l.caption = addEditNote.caption;
+                            Projects.Instance.Project[project].Log.RemoveAt(i);
+                            Projects.Instance.Project[project].Log.Insert(i, l);
+                            Projects.Save();
                             break;
                         }
                     }
@@ -530,6 +635,11 @@ namespace ProjectOrganizer
         private void mnuAddToDo_Click(object sender, RoutedEventArgs e)
         {
             bnAddToDo_Click(sender, e);
+        }
+
+        private void mnuAddLog_Click(object sender, RoutedEventArgs e)
+        {
+            bnAddLog_Click(sender, e);
         }
 
         private void mnuAddNote_Click(object sender, RoutedEventArgs e)
@@ -557,6 +667,7 @@ namespace ProjectOrganizer
                             Projects.Instance.Project[project].Notes[i].text = addEditNote.note;
                             Projects.Instance.Project[project].Notes[i].description = addEditNote.description;
                             Projects.Instance.Project[project].Notes[i].name = addEditNote.caption;
+                            reloadItems();
                             Projects.Save();
                             break;
                         }
@@ -601,16 +712,17 @@ namespace ProjectOrganizer
                     {
                         ImageSource img = ToImageSource(result);
                         p.picture = img;
-                        for (int i = 0; i < dat.Files.Count; i++)
+                        for (int i = 0; i < Projects.Instance.Project[project].Files.Count; i++)
                         {
-                            if (dat.Files[i] == (File)lbFiles.SelectedItem)
+                            if (Projects.Instance.Project[project].Files[i] == (File)lbFiles.SelectedItem)
                             {
-                                dat.Files[i] = p;
+                                Projects.Instance.Project[project].Files[i] = p;
                                 break;
                             }
                         }
 
-                        Projects.Instance.Project[project] = dat;
+                       
+                        reloadItems();
                         Projects.Save();
                     }
                 }
@@ -661,16 +773,16 @@ namespace ProjectOrganizer
                             ImageSource img = ToImageSource(result);
                             p.picture = img;
 
-                            for (int i = 0; i < dat.Apps.Count; i++)
+                            for (int i = 0; i < Projects.Instance.Project[project].Apps.Count; i++)
                             {
-                                if (dat.Apps[i] == (Program)lbApps.SelectedItem)
+                                if (Projects.Instance.Project[project].Apps[i] == (Program)lbApps.SelectedItem)
                                 {
-                                    dat.Apps[i] = p;
+                                    Projects.Instance.Project[project].Apps[i] = p;
                                     break;
                                 }
                             }
-
-                            Projects.Instance.Project[project] = dat;
+                            
+                            reloadItems();
                             Projects.Save();
                         }
                     }
@@ -713,8 +825,7 @@ namespace ProjectOrganizer
                             {
                                 ImageSource img = ToImageSource(result);
                                 p.picture = img;
-                                dat.Apps.Add(p);
-                                Projects.Instance.Project[project] = dat;
+                                Projects.Instance.Project[project].Apps.Add(p);                       
                                 Projects.Save();
                             }
                         }
@@ -755,8 +866,7 @@ namespace ProjectOrganizer
                         }
 
                         p.picture = img;
-                        dat.Files.Add(p);
-                        Projects.Instance.Project[project] = dat;
+                        Projects.Instance.Project[project].Files.Add(p);
                         Projects.Save();
                     }
                 }

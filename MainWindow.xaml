@@ -43,7 +43,7 @@
             <MenuItem Header="File">
                 <MenuItem Header="Connect to MS Teams" IsEnabled="False"/>
                 <MenuItem Name="mnuStartWithWindows" Header="Start with Windows" IsCheckable="True" Click="mnuStartWithWindows_Click"></MenuItem>
-                <MenuItem Name="mnuExit" Header="Exit" Click="mnuExit_Click"/>
+                <MenuItem Name="mnuExit" Header="Hide" Click="mnuExit_Click"/>
             </MenuItem>
 
             <MenuItem Header="Project">

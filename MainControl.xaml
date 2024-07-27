@@ -280,6 +280,53 @@
 
                 </Grid>
             </TabItem>
+            <TabItem Header="Log">
+                <Grid Background="#FFE5E5E5" Margin="-4,-4,0,0">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="28">
+
+                        </RowDefinition>
+                        <RowDefinition/>
+
+                    </Grid.RowDefinitions>
+                    <ToolBar Grid.Row="0" Background="White" Padding="3,0,0,0" Margin="-3,0,-26,0" ToolBarTray.IsLocked="True">
+                        <Button x:Name="bnAddLog" ToolTip="Add Log Item" Height="16" Width="16" BorderBrush="Black" Style="{DynamicResource ButtonStyle}" Click="bnAddLog_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/document.png"/>
+                            </Button.Background>
+                        </Button>
+                        <Button x:Name="bnDeleteLog" ToolTip="Delete" Height="16" Width="16" BorderBrush="Black" Style="{DynamicResource ButtonStyle}" Click="bnDeleteLog_Click">
+                            <Button.Background>
+                                <ImageBrush ImageSource="/bin.png"/>
+                            </Button.Background>
+                        </Button>
+                    </ToolBar>
+                    <ListBox x:Name="lbLog" d:ItemsSource="{Binding Log, Mode=OneWay}" Width="Auto" Height="Auto" Margin="0,24,-9,-9" MouseDoubleClick="lbTodo_MouseDoubleClick" Grid.RowSpan="2">
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Click="mnuAddLog_Click" Name="mnuAddLog" Header="Add"></MenuItem>
+                                <MenuItem Click="mnuEditLog_Click" Name="mnuEditLog" Header="Edit"></MenuItem>
+                                <Separator></Separator>
+                                <MenuItem Click="mnuRemoveLog_Click" Name="mnuRemoveLog" Header="Remove"></MenuItem>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="70" SharedSizeGroup="Column1"/>
+                                        <ColumnDefinition Width="400" SharedSizeGroup="Column2"/>
+                                    </Grid.ColumnDefinitions>
+                                    <!-- Assumes MVVM and you wish to bind to properties and commands -->
+                                    <TextBlock Grid.Column="0" Text="{Binding dateString}"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding captionString}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
             <!--  <TabItem Header="Mails">
                 <Grid Background="#FFE5E5E5" Margin="-4,-4,0,0">
                     <Grid.ColumnDefinitions>

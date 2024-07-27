@@ -38,5 +38,10 @@ namespace Project_Assistant
             this.DialogResult = false;
             this.Close();
         }
+
+        private void tbValue_KeyUp(object sender, KeyEventArgs e)
+        {
+            
+        }
     }
 }

@@ -39,7 +39,18 @@ namespace ProjectOrganizer
             Instance = this;
             InitializeComponent();
             tabMain.Items.IsLiveSorting = true;
-            
+
+            RegistryKey rk = Registry.CurrentUser.OpenSubKey
+                ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+            try
+            {
+                String ret = (String)rk.GetValue("ProjectAssistant", "FALSE");
+                if (ret != "FALSE")
+                {
+                    mnuStartWithWindows.IsChecked = true;
+                }
+            }
+            catch (Exception ex) { }
         }
 
         void loadTabs()
@@ -144,7 +155,7 @@ namespace ProjectOrganizer
 
         private void mnuExit_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Application.Current.Shutdown();
+            this.Close();
         }
 
         private void mnuStartWithWindows_Click(object sender, RoutedEventArgs e)

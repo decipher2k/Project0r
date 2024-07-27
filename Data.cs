@@ -65,5 +65,20 @@ namespace ProjectOrganizer
             }
         }
 
+        private ObservableCollection<Log> log;
+        public ObservableCollection<Log> Log
+        {
+            get
+            {
+                if (log == null)
+                    log = new ObservableCollection<Log>();
+                return log;
+            }
+            set
+            {
+                log=(ObservableCollection<Log>)value;
+            }
+        }
+
     }
 }
