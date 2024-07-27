@@ -95,11 +95,14 @@ namespace ProjectOrganizer
             catch (Exception) { }
         }
 
-        
+        public void setTab(int idx)
+        {
+            tabMain.SelectedIndex = idx;
+        }
         private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-        
+            MainWindow.Instance.VerticalTab = tabMain.SelectedIndex;
 
 
         }

@@ -52,7 +52,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl UseLayoutRounding="False" TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged">
+        <TabControl Name="tabMain" UseLayoutRounding="False" TabStripPlacement="Left" SelectionChanged="TabControl_SelectionChanged">
 
             <TabControl.ItemContainerStyle>
                 <Style TargetType="{x:Type TabItem}">

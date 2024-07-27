@@ -25,10 +25,12 @@ namespace ProjectOrganizer
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
+    /// 
+    
     public partial class MainWindow : Window
     {
-       
 
+        public int VerticalTab=0;
     public static MainWindow Instance { get; private set; }
 
         FloatingWindow w;
@@ -52,7 +54,7 @@ namespace ProjectOrganizer
                 {
                     TabItem tabItem = new TabItem();
                     tabItem.Header = key.Key;
-                    tabItem.Content = new MainControl(key.Key) {  };
+                    tabItem.Content = new MainControl(key.Key) { Name="mainContent" };
                     tabMain.Items.Add(tabItem);
                     tabMain.SelectedIndex = 0;
                 }
@@ -165,6 +167,7 @@ namespace ProjectOrganizer
                 if (((TabItem)tabMain.SelectedItem) != null)
                 {
                     FloatingWindow.currentProject = ((TabItem)tabMain.SelectedItem).Header.ToString();
+                    ((MainControl)((TabItem)tabMain.SelectedItem).Content).setTab(VerticalTab);
                 }
             }
         }
