@@ -6,6 +6,7 @@ using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Management.Instrumentation;
@@ -44,6 +45,13 @@ namespace ProjectOrganizer
 
         private void reloadItems()
         {
+            lbApps.ItemsSource = null;
+            lbFiles.ItemsSource = null;
+            lbNotes.ItemsSource = null;
+            lbTodo.ItemsSource = null;
+            lbCalendar.ItemsSource = null;
+            lbLog.ItemsSource = null;
+
             lbApps.ItemsSource = Projects.Instance.Project[project].Apps;
             lbFiles.ItemsSource = Projects.Instance.Project[project].Files;
             lbNotes.ItemsSource = Projects.Instance.Project[project].Notes;
@@ -373,7 +381,7 @@ namespace ProjectOrganizer
             {
                 try
                 {
-                    if (lbCalendar.SelectedItem == null)
+                    if (bnCreateCalendar.Content.ToString().Equals("Save")==false)
                     {
                         Calendar toDo = new Calendar();
                         
@@ -386,23 +394,28 @@ namespace ProjectOrganizer
                         toDo.id = Projects.Instance.Project[project].Calendar.Count == 0 ? 0 : Projects.Instance.Project[project].Calendar.Max(a => a.id) + 1;
                         Projects.Instance.Project[project].Calendar.Add(toDo);
                         Projects.Save();
+                        
                         bnAddCalendar_Click(sender, e);
                     }
                     else
                     {
-                        Calendar c=(Calendar)lbCalendar.SelectedItem;
+                       
+                        Calendar c=(Calendar)lbCalendar.SelectedItem;                        
                         for (int i = 0; i < Projects.Instance.Project[project].Calendar.Count; i++)
                         {
+                            
                             if (Projects.Instance.Project[project].Calendar[i].id == c.id)
                             {
                                 Projects.Instance.Project[project].Calendar[i].from = DateTime.Parse(tbCalendarFrom.Text);
                                 Projects.Instance.Project[project].Calendar[i].to = DateTime.Parse(tbCalendarTo.Text);
                                 Projects.Instance.Project[project].Calendar[i].text = tbCalendarDetails.Text;
+                                Projects.Instance.Project[project].Calendar[i].caption = tbCalendarCaption.Text;
                                 Projects.Save();
+                                reloadItems();
                                 break;
                             }
-                        }
-                        
+                        }                        
+
                     }
                 }
                 catch (Exception)
@@ -435,7 +448,7 @@ namespace ProjectOrganizer
                 tbCalendarDetails.Text = "";
                 calCalendar.SelectedDate = null;
             }
-            reloadItems();
+            
         }
         Control currentLB=null;
         private void bnAddCalendar_Click(object sender, RoutedEventArgs e)
@@ -666,9 +679,9 @@ namespace ProjectOrganizer
 
                             Projects.Instance.Project[project].Notes[i].text = addEditNote.note;
                             Projects.Instance.Project[project].Notes[i].description = addEditNote.description;
-                            Projects.Instance.Project[project].Notes[i].name = addEditNote.caption;
-                            reloadItems();
+                            Projects.Instance.Project[project].Notes[i].name = addEditNote.caption;                            
                             Projects.Save();
+                            reloadItems();
                             break;
                         }
                     }
