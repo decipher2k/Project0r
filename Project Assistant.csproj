@@ -89,6 +89,9 @@
     </Compile>
     <Compile Include="Note.cs" />
     <Compile Include="Log.cs" />
+    <Compile Include="Reminder.xaml.cs">
+      <DependentUpon>Reminder.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ToDo.cs" />
     <Page Include="AddEditFile.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -119,6 +122,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MsgBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Reminder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

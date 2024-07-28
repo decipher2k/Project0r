@@ -14,19 +14,25 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
+using Project_Assistant;
+using System.Globalization;
 
 namespace ProjectOrganizer
 {
     /// <summary>
     /// Interaktionslogik für FloatingWindow.xaml
     /// </summary>
+    
     public partial class FloatingWindow : Window
     {
+        
         public static FloatingWindow Instance;
         bool draged = false;
         bool startDragin=false;
         MainWindow mainWindow=new MainWindow();
         public static String currentProject = "";
+        Dictionary<String,Reminder> reminders = new Dictionary<string, Reminder>();
+
         public FloatingWindow()
         {
             Instance = this;
@@ -34,9 +40,50 @@ namespace ProjectOrganizer
             Projects.Load();
             Left = Projects.Instance.x;
             Top = Projects.Instance.y;
+
+            new System.Threading.Thread(ReminderThread).Start();
         }
 
-     
+        [STAThread]
+        private void ReminderThread()
+        {
+            while (true)
+            {
+                foreach (String p in Projects.Instance.Project.Keys)
+                {
+                    if (Projects.Instance.Project[p].Calendar.Where(a => a.date <= DateTime.Now && a.handled == false).Count() > 0)
+                    {
+                        if (reminders.ContainsKey(p))
+                        {
+                            reminders[p].UpdateItems(Projects.Instance.Project[p]);
+                        }
+                        else
+                        {
+                            Action<String> action = new Action<string>((s) =>
+                            {
+                                for (int i = 0; i < Projects.Instance.Project[s].Calendar.Count; i++)
+                                {
+                                    if (Projects.Instance.Project[s].Calendar[i].date <= DateTime.Now)
+                                    {
+                                        Projects.Instance.Project[s].Calendar[i].handled = true;
+                                        Projects.Save();
+                                    }
+                                }
+                            });
+                            
+                            Instance.Dispatcher.Invoke(()=> { 
+                                Reminder r = new Reminder(Projects.Instance.Project[p], p, action);
+                                reminders.Add(p, r);
+                                r.Show();
+                            });
+                            
+                            
+                        }
+                    }
+                }
+                System.Threading.Thread.Sleep(1000*60);
+            }            
+        }
     
 
     private void Window_MouseDown(object sender, MouseButtonEventArgs e)
