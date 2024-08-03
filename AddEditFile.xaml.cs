@@ -82,5 +82,10 @@ namespace ProjectOrganizer
                 tbFile.Text = ofd.SelectedPath;
             }
         }
+
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

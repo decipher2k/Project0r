@@ -5,23 +5,29 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectOrganizer"
         mc:Ignorable="d"
-        Title="File" Height="267" Width="226" WindowStyle="ToolWindow" Loaded="Window_Loaded" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+         Height="267" Width="226" Loaded="Window_Loaded" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="None">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="lblCaption" Content="Caption" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbCaption"  HorizontalAlignment="Left" Margin="21,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
-        <Label x:Name="lblDescription" Content="Description" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbDescription" HorizontalAlignment="Left" Margin="21,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
-        <Label x:Name="lblFile" Content="File" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbFile" HorizontalAlignment="Left" Margin="21,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147"/>
-        <Button x:Name="bnOpenFile" Content="F" HorizontalAlignment="Left" Margin="168,131,0,0" VerticalAlignment="Top" Width="16" Height="18" Click="bnOpenFile_Click"/>
-        <Button x:Name="bnOk" Content="Ok" HorizontalAlignment="Left" Margin="110,200,0,0" VerticalAlignment="Top" Width="44" IsDefault="True" Click="bnOk_Click"/>
-        <Button x:Name="bnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="159,200,0,0" VerticalAlignment="Top" IsCancel="True"/>
-        <CheckBox x:Name="cbRelativePath" Content="Relative Path" HorizontalAlignment="Left" Margin="21,154,0,0" VerticalAlignment="Top"/>
-        <CheckBox x:Name="cbStartOnce" Content="Single Process" HorizontalAlignment="Left" Margin="21,174,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="bnOpenDirectory" Content="D" HorizontalAlignment="Left" Margin="183,131,0,0" VerticalAlignment="Top" Width="16" Height="18" Click="bnOpenDirectory_Click"/>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Background="Black" Width="Auto" Height="Auto" MouseDown="Label_MouseDown" Content="Add/Edit File/Folder" Foreground="White" FontSize="9" Padding="0,-5,0,0"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Border Grid.RowSpan="2" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Margin="0,0,0,0"/>
+        <Label Grid.Row="1" x:Name="lblCaption" Content="Caption" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox Grid.Row="1"  x:Name="tbCaption"  HorizontalAlignment="Left" Margin="21,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
+        <Label Grid.Row="1"  x:Name="lblDescription" Content="Description" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top"/>
+        <TextBox Grid.Row="1"  x:Name="tbDescription" HorizontalAlignment="Left" Margin="21,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
+        <Label Grid.Row="1"  x:Name="lblFile" Content="File/Directory" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top"/>
+        <TextBox  Grid.Row="1" x:Name="tbFile" HorizontalAlignment="Left" Margin="21,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="147"/>
+        <Button Grid.Row="1"  x:Name="bnOpenFile" Content="F" HorizontalAlignment="Left" Margin="168,131,0,0" VerticalAlignment="Top" Width="16" Height="18" Click="bnOpenFile_Click" ToolTip="Select File"/>
+        <Button  Grid.Row="1" x:Name="bnOk" Content="Ok" HorizontalAlignment="Left" Margin="110,200,0,0" VerticalAlignment="Top" Width="44" IsDefault="True" Click="bnOk_Click"/>
+        <Button  Grid.Row="1"  x:Name="bnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="159,200,0,0" VerticalAlignment="Top" IsCancel="True"/>
+        <CheckBox Grid.Row="1"  x:Name="cbRelativePath" Content="Relative Path" HorizontalAlignment="Left" Margin="21,154,0,0" VerticalAlignment="Top" IsEnabled="False" ToolTip="Feature not yet implemented"/>
+        <CheckBox  Grid.Row="1" x:Name="cbStartOnce" Content="Single Process" HorizontalAlignment="Left" Margin="21,174,0,0" VerticalAlignment="Top"/>
+        <Button  Grid.Row="1" x:Name="bnOpenDirectory" Content="D" HorizontalAlignment="Left" Margin="183,131,0,0" VerticalAlignment="Top" Width="16" Height="18" Click="bnOpenDirectory_Click" ToolTip="Select Directory"/>
 
     </Grid>
 </Window>

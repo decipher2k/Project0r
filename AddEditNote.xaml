@@ -4,20 +4,25 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectOrganizer"
-        mc:Ignorable="d"
-        Title="Note" Height="350" Width="219" Loaded="Window_Loaded" WindowStyle="ToolWindow" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterOwner">
+         Height="340" Width="226" Loaded="Window_Loaded" ShowInTaskbar="False" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="None">
     <Grid Margin="0,0,0,8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="lblCaption" Content="Caption" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbCaption" HorizontalAlignment="Center" Margin="0,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
-        <Label x:Name="lblDescription" Content="Description" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="tbDescription" HorizontalAlignment="Center" Margin="0,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
-        <Label x:Name="lblNote" Content="Note" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="bnOk" Content="Ok" HorizontalAlignment="Left" Margin="104,282,0,0" VerticalAlignment="Top" Width="44" IsDefault="True" Click="bnOk_Click"/>
-        <Button x:Name="bnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="152,282,0,0" VerticalAlignment="Top" IsCancel="True"/>
-        <TextBox x:Name="tbNote" HorizontalAlignment="Center" Margin="0,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Height="137" AcceptsReturn="True"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Background="Black" Width="Auto" Height="Auto" MouseDown="Label_MouseDown" Content="Add/Edit Note" Foreground="White" FontSize="9" Padding="0,-5,0,0"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Border Grid.RowSpan="2" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Margin="0,0,0,0"/>
+        <Label Grid.Row="1" x:Name="lblCaption" Content="Caption" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <TextBox Grid.Row="1"  x:Name="tbCaption" HorizontalAlignment="Center" Margin="0,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
+        <Label Grid.Row="1"  x:Name="lblDescription" Content="Description" HorizontalAlignment="Left" Margin="10,58,0,0" VerticalAlignment="Top"/>
+        <TextBox  Grid.Row="1" x:Name="tbDescription" HorizontalAlignment="Center" Margin="0,82,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178"/>
+        <Label Grid.Row="1"  x:Name="lblNote" Content="Note" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top"/>
+        <Button Grid.Row="1"  x:Name="bnOk" Content="Ok" HorizontalAlignment="Left" Margin="105,282,0,0" VerticalAlignment="Top" Width="44" IsDefault="True" Click="bnOk_Click"/>
+        <Button Grid.Row="1"  x:Name="bnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="163,282,0,0" VerticalAlignment="Top" IsCancel="True"/>
+        <TextBox Grid.Row="1"  x:Name="tbNote" HorizontalAlignment="Center" Margin="0,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="178" Height="137" AcceptsReturn="True"/>
 
     </Grid>
 </Window>

@@ -51,5 +51,10 @@ namespace ProjectOrganizer
             tbDescription.Text = description;
             tbNote.Text = note;
         }
+
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

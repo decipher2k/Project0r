@@ -41,7 +41,12 @@ namespace Project_Assistant
 
         private void tbValue_KeyUp(object sender, KeyEventArgs e)
         {
-            
+           
+        }
+
+        private void Label_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }
