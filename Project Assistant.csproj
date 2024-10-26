@@ -40,6 +40,10 @@
     <ApplicationIcon>icon_final-Photoroom %281%29 %281%29.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="License, Version=6.7.0.0, Culture=neutral, PublicKeyToken=f80b1601a4d8a9dd, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Program Files (x86)\Eziriz\.NET Reactor\SDK\Binaries\License.dll .NET 4.x\License.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -81,6 +85,9 @@
     <Compile Include="FloatingWindow.xaml.cs">
       <DependentUpon>FloatingWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LicenseCheck.xaml.cs">
+      <DependentUpon>LicenseCheck.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainControl.xaml.cs">
       <DependentUpon>MainControl.xaml</DependentUpon>
     </Compile>
@@ -104,6 +111,10 @@
     <Page Include="FloatingWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LicenseCheck.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="MainControl.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -185,6 +196,7 @@
     <Resource Include="minimize.png" />
     <Resource Include="monitor.png" />
     <Resource Include="project-management%281%29.png" />
+    <Content Include="License.dll" />
     <Content Include="ProjectOrganizer.sln" />
     <Resource Include="schreiben.png" />
   </ItemGroup>
