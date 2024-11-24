@@ -158,21 +158,21 @@ namespace ProjectOrganizer
         private void mnuCloseWindow_Click(object sender, RoutedEventArgs e)
         {
             if (mainWindow.IsVisible)
-            {
-                running = false;
+            {   
                 mainWindow.Close();
             }
-            Application.Current.Shutdown();
+			running = false;
+			Application.Current.Shutdown();
         }
 
         private void mnuCloseWindow_Click(object sender, MouseButtonEventArgs e)
         {
             if (mainWindow.IsVisible)
-            {
-                running = false;
+            {    
                 mainWindow.Close();               
             }
-            Application.Current.Shutdown();
+            running = false;
+			Application.Current.Shutdown();
         }
 
         private void closeAllWindows()
