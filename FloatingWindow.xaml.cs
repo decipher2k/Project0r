@@ -38,9 +38,9 @@ namespace ProjectOrganizer
             
             Instance = this;
             InitializeComponent();
-            LicenseCheck licenseCheck = new LicenseCheck();
-            if(licenseCheck.IsInitialized)
-                licenseCheck.ShowDialog();
+          //  LicenseCheck licenseCheck = new LicenseCheck();
+           // if(licenseCheck.IsInitialized)
+             //   licenseCheck.ShowDialog();
             Projects.Load();
             Left = Projects.Instance.x;
             Top = Projects.Instance.y;

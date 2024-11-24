@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -73,7 +74,20 @@ namespace ProjectOrganizer
         }
 
         bool noProjects = true;
-        private void mnuProject_Click(object sender, RoutedEventArgs e)
+
+        private void mnuExportData_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.SaveFileDialog saveFileDialog = new Microsoft.Win32.SaveFileDialog();
+            saveFileDialog.Filter = "JSON File (*.json)|*.json";
+            saveFileDialog.DefaultExt="json";
+
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                Projects.Save(saveFileDialog.FileName);
+            }
+        }
+
+		private void mnuProject_Click(object sender, RoutedEventArgs e)
         {
             MsgBox msgBox = new MsgBox("Project Name");
             if (msgBox.ShowDialog() == true)
@@ -187,5 +201,23 @@ namespace ProjectOrganizer
         {
             Process.Start("https://www.paypal.com/donate/?hosted_button_id=9NHUZZDQDYYTS");
         }
-    }
+
+		private void mnuImportData_Click(object sender, RoutedEventArgs e)
+		{
+            Microsoft.Win32.OpenFileDialog openFileDialog = new Microsoft.Win32.OpenFileDialog();
+            openFileDialog.Filter = "JSON File (*.json)|*.json";
+			openFileDialog.DefaultExt = "json";
+
+            if(openFileDialog.ShowDialog()==true) 
+            {
+                if(System.Windows.MessageBox.Show("Warning! The import will overwrite your current data. Are you sure?", "Warning", MessageBoxButton.YesNo)==MessageBoxResult.Yes)
+                {
+                    Projects.Load(openFileDialog.FileName);
+                    Projects.Save();
+                    this.loadTabs();
+
+				}
+            }
+		}
+	}
 }

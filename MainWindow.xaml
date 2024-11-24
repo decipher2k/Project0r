@@ -33,7 +33,7 @@
             <RowDefinition Height="20"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Label Background="Black" Width="Auto" Height="Auto" MouseDown="Label_MouseDown" Content="Project Assistant 1.0" Foreground="White" FontSize="9" Padding="0,-5,0,0"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label Background="Black" Width="Auto" Height="Auto" MouseDown="Label_MouseDown" Content="Project Assistant 1.2" Foreground="White" FontSize="9" Padding="0,-5,0,0"  VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
         <Button x:Name="bnExit" Width="20" Height="20" HorizontalAlignment="Right" Style="{DynamicResource ButtonStyle}" Click="bnExit_Click">
             <Button.Background>
                 <ImageBrush ImageSource="/minimize.png"/>
@@ -41,8 +41,11 @@
         </Button>
         <Menu Height="20" Grid.Row="1" >
             <MenuItem Header="File">
-                <MenuItem Header="Connect to MS Teams" IsEnabled="False"/>
                 <MenuItem Name="mnuStartWithWindows" Header="Start with Windows" IsCheckable="True" Click="mnuStartWithWindows_Click"></MenuItem>
+                <MenuItem Name="mnuImportData" Header="Import Data" Click="mnuImportData_Click"></MenuItem>
+
+                <MenuItem Name="mnuExportData" Header="Export Data" Click="mnuExportData_Click"></MenuItem>
+           
                 <MenuItem Name="mnuExit" Header="Hide" Click="mnuExit_Click"/>
             </MenuItem>
 
@@ -58,7 +61,7 @@
             <TabItem Margin="0,0,0,0" Header="Intro" Height="Auto" Width="Auto" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid>
                     <TextBlock>
-                    Welcome to Project Assistant 1.0!
+                    Welcome to Project Assistant 1.2!
                     <LineBreak></LineBreak>                
                     There are no projects existing yet.
                     <LineBreak></LineBreak>
@@ -70,8 +73,7 @@
             </TabItem>
         </TabControl>
         <Rectangle Grid.RowSpan="4" Stroke="Black"/>
-        <Label Content="Donate" HorizontalAlignment="Left" Margin="692,0,0,0" VerticalAlignment="Center" Foreground="White" FontSize="8" Cursor="Hand" FontFamily="Arial" FontStyle="Italic" MouseLeftButtonUp="Label_MouseLeftButtonUp"/>
-
+      
 
     </Grid>
 </Window>
