@@ -11,10 +11,18 @@ namespace ProjectOrganizer
     {
         public String caption;
         public String description;
+        public int priority = 99;
         public long id;
         public override String ToString()
         {
-            return caption;
+            String token = "";
+            if (priority == 1)
+                token = "[H] ";
+            else if (priority == 2)
+                token = "[M] ";
+            else if (priority == 3)
+                token = "[L] ";
+            return token+caption;
         }
     }
 }

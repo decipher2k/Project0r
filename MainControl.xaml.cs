@@ -55,7 +55,7 @@ namespace ProjectOrganizer
             lbApps.ItemsSource = Projects.Instance.Project[project].Apps;
             lbFiles.ItemsSource = Projects.Instance.Project[project].Files;
             lbNotes.ItemsSource = Projects.Instance.Project[project].Notes;
-            lbTodo.ItemsSource = Projects.Instance.Project[project].ToDo;
+            lbTodo.ItemsSource = Projects.Instance.Project[project].ToDo.OrderBy(a=>a.priority).AsEnumerable();
             lbCalendar.ItemsSource = Projects.Instance.Project[project].Calendar;
             lbLog.ItemsSource = Projects.Instance.Project[project].Log;
             
@@ -885,5 +885,62 @@ namespace ProjectOrganizer
                 }
             }
         }
-    }
+
+		private void mnuHighToDo_Click(object sender, RoutedEventArgs e)
+		{
+			ToDo note = lbTodo.SelectedItem as ToDo;
+			if (note != null)
+			{
+					for (int i = 0; i < Projects.Instance.Project[project].ToDo.Count; i++)
+					{
+						if (Projects.Instance.Project[project].ToDo[i].id == note.id)
+						{
+
+                            Projects.Instance.Project[project].ToDo[i].priority = 1;
+							Projects.Save();
+							reloadItems();
+							break;
+						}
+					}
+			}
+		}
+
+		private void mnuMediumToDo_Click(object sender, RoutedEventArgs e)
+		{
+			ToDo note = lbTodo.SelectedItem as ToDo;
+			if (note != null)
+			{
+				for (int i = 0; i < Projects.Instance.Project[project].ToDo.Count; i++)
+				{
+					if (Projects.Instance.Project[project].ToDo[i].id == note.id)
+					{
+
+						Projects.Instance.Project[project].ToDo[i].priority = 2;
+						Projects.Save();
+						reloadItems();
+						break;
+					}
+				}
+			}
+		}
+
+		private void mnuLowToDo_Click(object sender, RoutedEventArgs e)
+		{
+			ToDo note = lbTodo.SelectedItem as ToDo;
+			if (note != null)
+			{
+				for (int i = 0; i < Projects.Instance.Project[project].ToDo.Count; i++)
+				{
+					if (Projects.Instance.Project[project].ToDo[i].id == note.id)
+					{
+
+						Projects.Instance.Project[project].ToDo[i].priority = 3;
+						Projects.Save();
+						reloadItems();
+						break;
+					}
+				}
+			}
+		}
+	}
 }
