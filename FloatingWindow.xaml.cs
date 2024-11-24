@@ -47,11 +47,11 @@ namespace ProjectOrganizer
 
             new System.Threading.Thread(ReminderThread).Start();
         }
-
+        public bool running = true;
         [STAThread]
         private void ReminderThread()
         {
-            while (true)
+            while (running)
             {
                 foreach (String p in Projects.Instance.Project.Keys)
                 {
@@ -159,6 +159,7 @@ namespace ProjectOrganizer
         {
             if (mainWindow.IsVisible)
             {
+                running = false;
                 mainWindow.Close();
             }
             Application.Current.Shutdown();
@@ -168,6 +169,7 @@ namespace ProjectOrganizer
         {
             if (mainWindow.IsVisible)
             {
+                running = false;
                 mainWindow.Close();               
             }
             Application.Current.Shutdown();
