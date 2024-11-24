@@ -532,6 +532,7 @@ namespace ProjectOrganizer
                 }
                 Projects.Instance.Project[project].ToDo.Remove(p);
                 Projects.Save();
+                reloadItems();
             }
         }
 

@@ -224,15 +224,16 @@
                     <ListBox x:Name="lbTodo" d:ItemsSource="{Binding ToDo, Mode=OneWay}" Width="Auto" Height="Auto" Margin="0,24,-9,-9" MouseDoubleClick="lbTodo_MouseDoubleClick" Grid.RowSpan="2">
                         <ListBox.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Click="mnuAddToDo_Click" Name="mnuAddToDo" Header="Add"></MenuItem>
-                                <MenuItem Click="mnuEditToDo_Click" Name="mnuEditToDo" Header="Edit"></MenuItem>
-                                <Separator></Separator>
                                 <MenuItem Header="Priority">
                                     <MenuItem Click="mnuHighToDo_Click" Name="mnuHighToDo" Header="High"></MenuItem>
                                     <MenuItem Click="mnuMediumToDo_Click" Name="mnuMediumToDo" Header="Medium"></MenuItem>
                                     <MenuItem Click="mnuLowToDo_Click" Name="mnuLowToDo" Header="Low"></MenuItem>
                                 </MenuItem>
                                 <Separator></Separator>
+                                <MenuItem Click="mnuAddToDo_Click" Name="mnuAddToDo" Header="Add"></MenuItem>
+                                <MenuItem Click="mnuEditToDo_Click" Name="mnuEditToDo" Header="Edit"></MenuItem>
+                                <Separator></Separator>
+                                
                                 <MenuItem Click="mnuRemoveToDo_Click" Name="mnuRemoveToDo" Header="Remove"></MenuItem>
                             </ContextMenu>
                         </ListBox.ContextMenu>

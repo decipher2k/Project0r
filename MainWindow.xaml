@@ -42,10 +42,11 @@
         <Menu Height="20" Grid.Row="1" >
             <MenuItem Header="File">
                 <MenuItem Name="mnuStartWithWindows" Header="Start with Windows" IsCheckable="True" Click="mnuStartWithWindows_Click"></MenuItem>
+                <Separator></Separator>
                 <MenuItem Name="mnuImportData" Header="Import Data" Click="mnuImportData_Click"></MenuItem>
 
                 <MenuItem Name="mnuExportData" Header="Export Data" Click="mnuExportData_Click"></MenuItem>
-           
+                <Separator></Separator>
                 <MenuItem Name="mnuExit" Header="Hide" Click="mnuExit_Click"/>
             </MenuItem>
 
